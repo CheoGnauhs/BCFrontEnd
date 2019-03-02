@@ -1,6 +1,6 @@
 <template>
   <div class="footer">
-    <span>© 2019 BlockChain Flea</span>
+    <span>© 2019 BlockChain Flea Market</span>
   </div>
 </template>
 
