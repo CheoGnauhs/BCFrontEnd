@@ -3,9 +3,7 @@
     <el-header>
       <LogoBar></LogoBar>
     </el-header>
-    <el-main>
-      <LoginBody></LoginBody>
-    </el-main>
+    <el-main></el-main>
     <el-footer>
       <FooterBar></FooterBar>
     </el-footer>
@@ -14,20 +12,16 @@
 
 <script>
 import LogoBar from "../components/LogoBar.vue";
-import LoginBody from "../components/LoginBody.vue";
 import FooterBar from "../components/FooterBar.vue";
 
 export default {
-  name: "Login",
-  components: { 
-    LogoBar, 
-    LoginBody, 
-    FooterBar }
+  name: "Register",
+  components: { LogoBar, FooterBar }
 };
 </script>
 
 <style scoped>
 .el-container{
-  margin-top:30px;
+  margin-top: 30px;
 }
 </style>

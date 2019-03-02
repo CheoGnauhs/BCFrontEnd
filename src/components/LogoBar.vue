@@ -1,5 +1,7 @@
 <template>
-  <div class="logo-bar"></div>
+  <div class="logo-bar">
+    <img class="logo" src="../assets/logo.png" alt="logo"/>
+  </div>
 </template>
 
 <script>
@@ -8,5 +10,10 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.logo{
+  height: 50px;
+  display: block;
+  margin: 0 auto;
+}
 </style>

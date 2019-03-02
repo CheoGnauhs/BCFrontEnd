@@ -29,9 +29,9 @@
     </el-col>
     <el-col class="link-wrapper" :span="2">
       <span class="link-area">
-        <a href="/login">登陆</a>
+        <a href="/#/login">登陆</a>
         /
-        <a href="/register">注册</a>
+        <a href="/#/register">注册</a>
       </span>
     </el-col>
   </el-row>
@@ -54,6 +54,7 @@ export default {
   border: none !important;
 }
 .nav-bar {
+  min-width: 1150px;
   border-bottom: solid 1px #e6e6e6;
 }
 .search-input {
