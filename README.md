@@ -1,4 +1,4 @@
-# BCFrontEnd
+# Blockchain Flea Market
 Front end of SITP Blockchain Program
 
 1.  组件库:
