@@ -1,5 +1,5 @@
 # Blockchain Flea Market
-Front end of SITP Blockchain Program
+Front end of SITP Blockchain Program  
 项目是用yarn搭建的，先yarn install，再yarn run serve即可启动项目  
 
 1.  组件库:
