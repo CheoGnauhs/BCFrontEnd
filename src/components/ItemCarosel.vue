@@ -16,7 +16,7 @@ export default {
 
 <style scoped>
 .item-carosel {
-  width: 1000px;
+  width: 100%;
 }
 .el-carousel__item h3 {
   color: #475669;

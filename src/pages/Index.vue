@@ -33,8 +33,4 @@ export default {
   display: flex;
   justify-content: center;
 }
-.el-footer {
-  display: flex;
-  justify-content: center;
-}
 </style>

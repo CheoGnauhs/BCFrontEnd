@@ -1,6 +1,6 @@
 <template>
   <el-row class="nav-bar" type="flex" justify="space-between">
-    <el-col :span="9">
+    <el-col :span="5">
       <el-menu :default-active="'1'" class="el-menu-demo" mode="horizontal">
         <el-menu-item index="1">首页</el-menu-item>
         <el-menu-item index="2">物品发布</el-menu-item>
@@ -13,7 +13,7 @@
         </el-submenu>
       </el-menu>
     </el-col>
-    <el-col class="search-wrapper" :span="12">
+    <el-col class="search-wrapper" :span="5">
       <el-input
         class="search-input"
         placeholder="请输入您要搜索的物品"
@@ -22,7 +22,7 @@
       ></el-input>
       <el-button icon="el-icon-search" type="primary">搜索</el-button>
     </el-col>
-    <el-col class="link-wrapper" :span="3">
+    <el-col class="link-wrapper" :span="2">
       <span class="link-area">
         <a href="/login">登陆</a>
         /
