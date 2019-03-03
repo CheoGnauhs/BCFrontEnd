@@ -1,6 +1,6 @@
 <template>
   <div class="register-body">
-    <el-form :model="registerInfo" :rules="rules">
+    <el-form :model="registerInfo" :rules="rules" ref="registerInfo">
       <el-form-item label="用户名" prop="username">
         <el-input v-model="registerInfo.username"></el-input>
       </el-form-item>
@@ -17,7 +17,7 @@
         <el-input v-model="registerInfo.checkPassword" type="password"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button @click="register" class="wide-button" type="primary">确认注册</el-button>
+        <el-button @click="register('registerInfo')" class="wide-button" type="primary">确认注册</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -27,19 +27,28 @@
 export default {
   name: "RegisterBody",
   data() {
-    var checkTel = (rule, value, callback) => {
-      if (!value) {
-        callback(new Error("手机号不能为空"));
+    var validateUsername = (rule, value, callback) => {
+      let reg = /^\w+$/;
+      if (value.search(reg) === -1) {
+        callback(new Error("用户名需由数字、字母、下划线构成"));
+      } else {
+        callback();
       }
-      if (value.length != 11) {
+    };
+    var checkTel = (rule, value, callback) => {
+      let reg = /^((0\d{2,3}-\d{7,8})|(1[356784]\d{9}))$/;
+      if (value.search(reg) === -1) {
         callback(new Error("请输入正确的手机号"));
       } else {
         callback();
       }
     };
     var validatePass = (rule, value, callback) => {
+      let reg = /(?=.*[a-z])(?=.*\d)(?=.*[#@!~%^&*])[a-z\d#@!~%^&*]{8,16}/i;
       if (!value) {
         callback(new Error("密码不能为空"));
+      } else if (value.search(reg) === -1) {
+        callback(new Error("密码中必须包含字母、数字、特殊符号"));
       } else {
         if (this.registerInfo.checkPassword != "") {
           this.$refs.registerInfo.validateField("checkPassword");
@@ -57,8 +66,9 @@ export default {
       }
     };
     var checkEmail = (rule, value, callback) => {
-      if (value.search("@") == -1 || value.search("." == -1)) {
-        callback(new Error("请输入合法的邮箱地址"));
+      let reg = /^\w+@[a-zA-Z0-9]{2,10}(?:\.[a-z]{2,4}){1,3}$/;
+      if (value.search(reg) === -1) {
+        callback(new Error("请输入正确的邮箱地址"));
       } else {
         callback();
       }
@@ -72,31 +82,53 @@ export default {
         checkPassword: ""
       },
       rules: {
-        name: [
-          { required: true, message: "请输入您的用户名", trigger: blur },
+        username: [
+          { required: true, message: "请输入您的用户名", trigger: "blur" },
           {
             min: 4,
             max: 14,
             message: "输入长度请在4到14个字符之间",
-            trigger: blur
-          }
+            trigger: "blur"
+          },
+          { validator: validateUsername, trigger: "blur" }
         ],
-        telephone: [{ validator: checkTel, trigger: blur }],
-        password: [{ validator: validatePass, trigger: blur }],
-        checkPassword: [{ validator: validateCheckPass, trigger: blur }],
-        email: [{ validator: checkEmail, trogger: blur }]
+        telephone: [
+          { required: true, message: "请输入您的手机号", trigger: "blur" },
+          { validator: checkTel, trigger: "blur" }
+        ],
+        password: [
+          {
+            min: 8,
+            max: 16,
+            message: "密码的长度请在8到16个字符之间",
+            trigger: "blur"
+          },
+          { required: true, message: "请输入您的密码", trigger: "blur" },
+          { validator: validatePass, trigger: "blur" }
+        ],
+        checkPassword: [
+          { required: true, message: "请再次输入您的密码", trigger: "blur" },
+          { validator: validateCheckPass, trigger: "blur" }
+        ],
+        email: [
+          {
+            required: true,
+            message: "请输入您的电子邮件地址",
+            trigger: "blur"
+          },
+          { validator: checkEmail, trigger: "blur" }
+        ]
       }
     };
   },
   methods: {
     register(registerInfo) {
-      this.$refs[registerInfo].validate((valid) => {
+      this.$refs[registerInfo].validate(valid => {
         if (valid) {
-          // eslint-disable-next-line
-          console.log("submit!");
+          alert("表单验证成功!");
         } else {
           // eslint-disable-next-line
-          console.log("something wrong!");
+          console.log("表单验证失败!");
           return false;
         }
       });
