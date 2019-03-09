@@ -1,7 +1,7 @@
 <template>
   <div class="order-item">
     <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
-      <el-card :body-style="{ padding: '10px' }">
+      <el-card :body-style="{ padding: '10px'} " shadow="hover" class="card">
         <img v-bind:src="data.picPath" class="image">
         <div style="padding: 14px;">
           <span>{{data.title}}</span>
@@ -20,6 +20,9 @@ export default {
 </script>
 
 <style scoped>
+.card {
+  margin: 10px
+}
 .image {
   width: 100%;
   display: block;
