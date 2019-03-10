@@ -5,15 +5,15 @@
         <img class="logo" src="../assets/logo.png" alt="logo">
       </el-col>
       <el-col>
-        <el-menu :default-active="'1'" class="el-menu-demo" mode="horizontal">
-          <el-menu-item index="1">首页</el-menu-item>
+        <el-menu :default-active="'1'" router class="el-menu-demo" mode="horizontal">
+          <el-menu-item index>首页</el-menu-item>
           <el-menu-item index="2">物品发布</el-menu-item>
           <el-submenu index="3">
             <template slot="title">个人信息</template>
             <el-menu-item index="3-1">我的订单</el-menu-item>
             <el-menu-item index="3-2">我的物品</el-menu-item>
             <el-menu-item index="3-3">我的收藏</el-menu-item>
-            <el-menu-item index="3-4">我的信用</el-menu-item>
+            <el-menu-item index="/credit">我的信用</el-menu-item>
           </el-submenu>
         </el-menu>
       </el-col>
@@ -76,11 +76,11 @@ export default {
 .logo {
   height: 40px;
 }
-.left-area{
-  display:flex;
+.left-area {
+  display: flex;
   justify-content: left;
 }
-.left-area>div{
+.left-area > div {
   width: fit-content;
   margin-right: 15px;
 }
