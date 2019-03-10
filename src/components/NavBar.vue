@@ -6,7 +6,7 @@
       </el-col>
       <el-col>
         <el-menu :default-active="'1'" router class="el-menu-demo" mode="horizontal">
-          <el-menu-item index>首页</el-menu-item>
+          <el-menu-item index="/">首页</el-menu-item>
           <el-menu-item index="2">物品发布</el-menu-item>
           <el-submenu index="3">
             <template slot="title">个人信息</template>
