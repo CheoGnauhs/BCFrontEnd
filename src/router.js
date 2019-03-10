@@ -3,6 +3,7 @@ import Index from "./pages/Index.vue";
 import Login from "./pages/Login.vue";
 import Register from "./pages/Register";
 import Order from "./pages/Order";
+import Check from "./pages/Check";
 
 const router = new VueRouter({
   mode: "hash",
@@ -22,6 +23,10 @@ const router = new VueRouter({
     {
       path:"/order",
       component: Order
+    },
+    {
+      path:"/check",
+      component: Check
     }
   ]
 });

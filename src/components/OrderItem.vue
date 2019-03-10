@@ -35,8 +35,6 @@
 </template>
 
 <script>
-import '../assets/icon/iconheart.css'
-
 export default {
   name: "OrderItem",
   props: ['data'],
