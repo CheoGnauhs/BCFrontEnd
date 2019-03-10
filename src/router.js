@@ -4,11 +4,12 @@ import Login from "./pages/Login.vue";
 import Register from "./pages/Register.vue";
 import NewItem from "./pages/NewItem.vue";
 import ItemDetail from "./pages/ItemDetail.vue";
+import Credit from "./pages/Credit";
+import Profile from "./pages/Profile";
 
 const router = new VueRouter({
   mode: "hash",
-  routes: [
-    {
+  routes: [{
       path: "/",
       component: Index
     },
@@ -27,6 +28,14 @@ const router = new VueRouter({
     {
       path: "/item-detail",
       component: ItemDetail
+    },
+    {
+      path: "/credit",
+      component: Credit
+    },
+    {
+      path: "/profile",
+      component: Profile
     }
   ]
 });

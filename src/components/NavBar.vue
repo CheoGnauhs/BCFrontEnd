@@ -17,7 +17,7 @@
             <el-menu-item index="3-1">我的订单</el-menu-item>
             <el-menu-item index="3-2">我的物品</el-menu-item>
             <el-menu-item index="3-3">我的收藏</el-menu-item>
-            <el-menu-item index="3-4">我的信用</el-menu-item>
+            <el-menu-item index="/credit">我的信用</el-menu-item>
           </el-submenu>
         </el-menu>
       </el-col>
