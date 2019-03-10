@@ -6,8 +6,12 @@
       </el-col>
       <el-col>
         <el-menu :default-active="'1'" class="el-menu-demo" mode="horizontal">
-          <el-menu-item index="1">首页</el-menu-item>
-          <el-menu-item index="2">物品发布</el-menu-item>
+          <el-menu-item index="1">
+            <a href="/">首页</a>
+          </el-menu-item>
+          <el-menu-item index="2">
+            <a href="#/new-item">物品发布</a>
+          </el-menu-item>
           <el-submenu index="3">
             <template slot="title">个人信息</template>
             <el-menu-item index="3-1">我的订单</el-menu-item>
@@ -53,6 +57,9 @@ export default {
 .el-menu {
   border: none !important;
 }
+.el-menu-item > a {
+  text-decoration: none;
+}
 .nav-bar {
   min-width: 1150px;
   border-bottom: solid 1px #e6e6e6;
@@ -76,11 +83,11 @@ export default {
 .logo {
   height: 40px;
 }
-.left-area{
-  display:flex;
+.left-area {
+  display: flex;
   justify-content: left;
 }
-.left-area>div{
+.left-area > div {
   width: fit-content;
   margin-right: 15px;
 }

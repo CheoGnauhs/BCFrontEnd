@@ -3,11 +3,12 @@
     <el-header>
       <NavBar></NavBar>
     </el-header>
+
     <el-main>
-      <router-link to="/">
-        <ItemCarosel></ItemCarosel>
-      </router-link>
+      <ItemCarosel></ItemCarosel>
+      <CardHolder></CardHolder>
     </el-main>
+
     <el-footer>
       <FooterBar></FooterBar>
     </el-footer>
@@ -18,12 +19,14 @@
 import NavBar from "../components/NavBar.vue";
 import FooterBar from "../components/FooterBar.vue";
 import ItemCarosel from "../components/ItemCarosel.vue";
+import CardHolder from "../components/CardHolder.vue";
 export default {
   name: "Index",
   components: {
     NavBar,
     FooterBar,
-    ItemCarosel
+    ItemCarosel,
+    CardHolder
   }
 };
 </script>

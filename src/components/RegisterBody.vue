@@ -1,5 +1,6 @@
 <template>
   <div class="register-body">
+    <h3>注册您的账号</h3>
     <el-form :model="registerInfo" :rules="rules" ref="registerInfo">
       <el-form-item label="用户名" prop="username">
         <el-input v-model="registerInfo.username"></el-input>
@@ -141,7 +142,7 @@ export default {
 .register-body {
   border-radius: 5px;
   border: 1px #909399 solid;
-  width: 400px;
+  width: 350px;
   padding: 20px;
   margin: 0 auto;
 }
