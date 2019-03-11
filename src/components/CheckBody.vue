@@ -2,14 +2,13 @@
   <div class="cart">
 
     <div v-if="cartTotal > 0">
-      <h1>Cart</h1>
+      <h1>{{ item.title }}</h1>
       <div class="cartitems">
         <div class="carttext">
-          <h4>{{ item.name }}</h4>
-          <p>{{ item.price | usdollar }} x {{ item.count }}</p>
-          <p>Total for this item: <strong>{{ item.price * item.count }}</strong></p>
+          <h4>{{ item.description }}</h4>
+          <p style="color: red">{{ item.price | usdollar }}</p>
         </div>
-        <img class="cartimg" :src="`${item.img}`" :alt="`Image of ${item.name}`">
+        <img class="cartimg" :src="`${item.picPath}`" :alt="`Image of ${item.name}`">
       </div>
       <div class="total">
         <h3>Total: {{ total | usdollar }}</h3>
@@ -41,11 +40,15 @@ export default {
     return {
       success: false,
       item: {
-        name: 'title',
-        price: 124.34,
-        count: 123,
-        img: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2254553630,4138028601&fm=26&gp=0.jpg'
-      }
+        picPath: "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2254553630,4138028601&fm=26&gp=0.jpg",
+        title: "商品名商品名商品名",
+        avatar: "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2254553630,4138028601&fm=26&gp=0.jpg",
+        description: "这是一段商品描述这是一段商品描述这是一段商品描述这是一段商品描述这是一段商品描述这是一段商品描述这是一段商品描述这是一段商品描述这是一段商品描述",
+        price: 100.12,
+        userName: "asdeasd",
+        userId: "userID"
+      },
+      
     };
   },
   components: {
@@ -72,7 +75,7 @@ export default {
   },
   filters: {
     usdollar: function(value) {
-      return `$${value}`;
+      return `¥ ${value}`;
     }
   }
 };

@@ -3,11 +3,28 @@
     <transition name="fade">
 
       <div v-if="!submitted" class="payment">
-        <h3>Please enter your payment details:</h3>
-        <label for="email">Email</label>
-        <input id="email" type="email" v-model="stripeEmail" placeholder="name@example.com"/>
+        <h3>请确认订单信息</h3>
+
+        <el-input placeholder="如：上海市杨浦区四平路同济大学" v-model="address">
+          <template slot="prepend">请输入地址</template>
+        </el-input>
+
+        <el-row>
+          <el-col :xs="12" :sm="8" :md="8" :lg="8" :xl="8" style="padding: 0 5px 0 0">
+            <el-input placeholder="收件人" v-model="receiver">
+              <template slot="prepend">请输入收件人</template>
+            </el-input>
+          </el-col>
+          
+          <el-col :xs="12" :sm="8" :md="8" :lg="8" :xl="8" style="padding: 0 0 0 5px">
+            <el-input placeholder="+86" v-model="phone" type="number">
+              <template slot="prepend">请输入联系方式</template>
+            </el-input>
+          </el-col>
+
+        </el-row>
         <label for="card">Credit Card</label>
-        <p>Test using this credit card: <span class="cc-number">4242 4242 4242 4242</span>, and enter any 5 digits for the zip code</p>
+      
         <card class='stripe-card'
           id="card"
           :class='{ complete }'
@@ -15,7 +32,7 @@
           :options='stripeOptions'
           @change='complete = $event.complete'
         />
-        <button class='pay-with-stripe' @click='pay' :disabled='!complete || !stripeEmail'>Pay with credit card</button>
+        <el-button  type="primary" round @click='pay' :disabled='!complete || !address || !receiver || !phone'>Pay with credit card</el-button>
       </div>
 
       <div v-else class="statussubmit">
@@ -61,6 +78,9 @@ export default {
       complete: false,
       status: '',
       response: '',
+      address: '',
+      receiver: '',
+      phone: '',
       stripeOptions: {
         // you can configure that cc element. I liked the default, but you can
         // see https://stripe.com/docs/stripe.js#element-options for details
@@ -152,10 +172,6 @@ label {
   color: black;
   margin: 15px 0 5px;
   font-family: 'Playfair Display', sans-serif;
-}
-button[disabled] {
-  color: #ccc;
-  border-color: #ccc;
 }
 .loadcontain {
   text-align: center;
