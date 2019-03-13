@@ -1,6 +1,5 @@
 <template>
   <el-container>
-
     <el-header>
       <NavBar></NavBar>
     </el-header>
@@ -14,7 +13,7 @@
         </el-carousel>
         <div class="item-info">
           <h3 class="item-title">百事可乐碳酸汽水饮料整箱600ml*24瓶</h3>
-          <div class="item-price">
+          <div class="item-price column">
             价格:
             <span class="price">69.90</span>二手币
           </div>
@@ -31,11 +30,11 @@
         </div>
       </div>
       <div class="comment-part">
-        <div class="comment-header">用户评论</div>
-        <ul v-for="comment in comments" :key="comment">
+        <div class="comment-header column">用户评论</div>
+        <ul class="comments" v-for="comment in comments" :key="comment">
           <li class="comment-item">
             <div class="user-info">
-              <img :src="comment.avatar" alt="avatar">
+              <img class="user-avatar" :src="comment.avatar" alt="avatar">
               <div class="user-name">{{comment.name}}</div>
             </div>
             <div class="user-comment">{{comment.content}}</div>
@@ -47,7 +46,6 @@
     <el-footer>
       <FooterBar></FooterBar>
     </el-footer>
-
   </el-container>
 </template>
 
@@ -62,12 +60,12 @@ export default {
     return {
       comments: [
         {
-          avatar: "../assets/logo.png",
+          avatar: require("../assets/avatar.jpg"),
           name: "谭爽",
           content: "看起来可以"
         },
         {
-          avatar: "../assets/logo.png",
+          avatar: require("../assets/avatar.jpg"),
           name: "谭爽",
           content: "看起来不行"
         }
@@ -114,6 +112,12 @@ export default {
 .item-img {
   width: 600px;
 }
+.comments {
+  padding-left: 0;
+}
+.column {
+  padding-left: 10px !important;
+}
 .comment-header {
   margin-top: 10px;
   padding: 10px 0;
@@ -123,12 +127,23 @@ export default {
   list-style: none;
   display: flex;
 }
-.user-info{
+.user-name {
+  
+}
+.user-info {
   width: 100px;
   font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.user-comment{
-  color:#606266;
+.user-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+.user-comment {
+  color: #606266;
   font-size: 14px;
 }
 h3 {
