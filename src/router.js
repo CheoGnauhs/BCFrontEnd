@@ -51,8 +51,7 @@ const router = new VueRouter({
   {
     path: "/order-detail",
     component: OrderDetail
-  }
-  ]
+  }]
 });
 
 export default router;

@@ -37,7 +37,20 @@
               <img class="user-avatar" :src="comment.avatar" alt="avatar">
               <div class="user-name">{{comment.name}}</div>
             </div>
-            <div class="user-comment">{{comment.content}}</div>
+            <div class="comment-right">
+              <div class="user-comment">{{comment.content}}</div>
+              <div class="comment-message">
+                <div class="comment-time">{{comment.timestamp}}</div>
+                <div class="comment-op">
+                  <a class="op-btn" href>
+                    <i class="a-thumb"></i>0
+                  </a>
+                  <a class="op-btn" href>
+                    <i class="a-comment"></i>0
+                  </a>
+                </div>
+              </div>
+            </div>
           </li>
         </ul>
       </div>
@@ -61,13 +74,15 @@ export default {
       comments: [
         {
           avatar: require("../assets/avatar.jpg"),
-          name: "谭爽",
-          content: "看起来可以"
+          name: "吕岩松",
+          content: "看起来可以",
+          timestamp: "2019-03-07 11:08"
         },
         {
           avatar: require("../assets/avatar.jpg"),
-          name: "谭爽",
-          content: "看起来不行"
+          name: "吕岩松",
+          content: "看起来不行",
+          timestamp: "2019-03-07 11:08"
         }
       ]
     };
@@ -75,7 +90,7 @@ export default {
 };
 </script>
 
-<style scpoed>
+<style scoped>
 .display-area {
   width: 1000px;
   margin: 0 auto;
@@ -124,15 +139,20 @@ export default {
   background: rgb(198, 226, 255);
 }
 .comment-item {
+  min-height: 75px;
   list-style: none;
-  display: flex;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #dcdfe6;
 }
 .user-name {
-  
+  font-size: 14px;
+  color: #606266;
+  margin-top: 3px;
 }
 .user-info {
   width: 100px;
   font-size: 16px;
+  float: left;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -143,8 +163,51 @@ export default {
   border-radius: 50%;
 }
 .user-comment {
-  color: #606266;
+  min-height: 75px;
+  color: #303133;
   font-size: 14px;
+}
+.comment-right {
+  margin-left: 100px;
+}
+.comment-message {
+  height: 12px;
+}
+.comment-time {
+  font-size: 12px;
+  color: #909399;
+  float: left;
+}
+.comment-op {
+  display: flex;
+  justify-content: flex-end;
+}
+.op-btn {
+  font-size: 12px;
+  color: #909399;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+}
+.a-thumb,
+.a-comment {
+  display: inline-block;
+  min-width: 12px;
+  height: 12px;
+  margin-right: 3px;
+}
+.a-comment {
+  background-image: url("../assets/comment.png");
+}
+.a-thumb {
+  background-image: url("../assets/thumb.png");
+}
+.a-comment:hover {
+  background-image: url("../assets/comment-active.png");
+}
+.a-thumb:hover {
+  background-image: url("../assets/thumb-active.png");
 }
 h3 {
   text-align: center;

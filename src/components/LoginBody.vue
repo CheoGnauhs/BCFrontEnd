@@ -49,7 +49,7 @@ p{
 }
 .login-body {
   border-radius: 5px;
-  border: 1px #909399 solid;
+  border: 1px #DCDFE6 solid;
   width: 300px;
   padding: 20px;
   margin: 0 auto;
