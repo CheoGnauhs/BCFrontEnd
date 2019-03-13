@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-header>
-      <NavBar></NavBar>
+      <NavBar actpage="2"></NavBar>
     </el-header>
     <el-main>
       <el-form class="item-wrapper">

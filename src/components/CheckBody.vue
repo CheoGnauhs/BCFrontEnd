@@ -2,17 +2,6 @@
   <div class="cart">
 
     <div v-if="cartTotal > 0">
-      <h1>{{ item.title }}</h1>
-      <div class="cartitems">
-        <div class="carttext">
-          <h4>{{ item.description }}</h4>
-          <p style="color: red">{{ item.price | usdollar }}</p>
-        </div>
-        <img class="cartimg" :src="`${item.picPath}`" :alt="`Image of ${item.name}`">
-      </div>
-      <div class="total">
-        <h3>Total: {{ total | usdollar }}</h3>
-      </div>
       <app-checkout :total="total" @successSubmit="success = true"></app-checkout>
     </div>
 
@@ -88,12 +77,10 @@ export default {
   justify-content: center;
   align-content: center;
   align-items: center;
-  padding: 50px;
   background: white;
   border-radius: 3px;
   margin-top: 10px;
   padding-bottom: 80px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .cart.empty h1,

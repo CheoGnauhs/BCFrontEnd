@@ -5,7 +5,7 @@
         <img class="logo" src="../assets/logo.png" alt="logo">
       </el-col>
       <el-col>
-        <el-menu :default-active="'1'" class="el-menu-demo" mode="horizontal">
+        <el-menu :default-active="actpage" class="el-menu-demo" mode="horizontal">
           <el-menu-item index="1">
             <a href="/">首页</a>
           </el-menu-item>
@@ -40,7 +40,7 @@
 <script>
 export default {
   name: "NavBar",
-  props: [],
+  props: ['actpage'],
   data() {
     return {
       searchInput: ""

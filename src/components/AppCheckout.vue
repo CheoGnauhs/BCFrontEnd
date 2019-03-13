@@ -1,7 +1,6 @@
 <template>
   <div>
     <transition name="fade">
-
       <div v-if="!submitted" class="payment">
         <h3>请确认订单信息</h3>
 
@@ -9,30 +8,30 @@
           <template slot="prepend">请输入地址</template>
         </el-input>
 
-        <el-row>
-          <el-col :xs="12" :sm="8" :md="8" :lg="8" :xl="8" style="padding: 0 5px 0 0">
-            <el-input placeholder="收件人" v-model="receiver">
-              <template slot="prepend">请输入收件人</template>
-            </el-input>
-          </el-col>
-          
-          <el-col :xs="12" :sm="8" :md="8" :lg="8" :xl="8" style="padding: 0 0 0 5px">
-            <el-input placeholder="+86" v-model="phone" type="number">
-              <template slot="prepend">请输入联系方式</template>
-            </el-input>
-          </el-col>
+        <el-input placeholder="收件人" v-model="receiver">
+          <template slot="prepend">请输入收件人</template>
+        </el-input>
 
-        </el-row>
+        <el-input placeholder="+86" v-model="phone" type="number">
+          <template slot="prepend">请输入联系方式</template>
+        </el-input>
+
         <label for="card">Credit Card</label>
-      
-        <card class='stripe-card'
+
+        <card
+          class="stripe-card"
           id="card"
-          :class='{ complete }'
-          stripe='pk_test_5ThYi0UvX3xwoNdgxxxTxxrG'
-          :options='stripeOptions'
-          @change='complete = $event.complete'
+          :class="{ complete }"
+          stripe="pk_test_5ThYi0UvX3xwoNdgxxxTxxrG"
+          :options="stripeOptions"
+          @change="complete = $event.complete"
         />
-        <el-button  type="primary" round @click='pay' :disabled='!complete || !address || !receiver || !phone'>Pay with credit card</el-button>
+        <el-button
+          type="primary"
+          round
+          @click="pay"
+          :disabled="!complete || !address || !receiver || !phone"
+        >Pay with credit card</el-button>
       </div>
 
       <div v-else class="statussubmit">
@@ -44,17 +43,16 @@
 
         <div v-else class="loadcontain">
           <h4>Please hold, we're filling up your cart with goodies</h4>
-          <app-loader />
+          <app-loader/>
         </div>
       </div>
-
     </transition>
   </div>
 </template>
 
 <script>
-import { Card, createToken } from 'vue-stripe-elements-plus';
-import AppLoader from './AppLoader.vue';
+import { Card, createToken } from "vue-stripe-elements-plus";
+import AppLoader from "./AppLoader.vue";
 // import axios from 'axios';
 
 export default {
@@ -65,7 +63,7 @@ export default {
   props: {
     total: {
       type: [Number, String],
-      default: '50.00'
+      default: "50.00"
     },
     success: {
       type: Boolean,
@@ -76,16 +74,16 @@ export default {
     return {
       submitted: false,
       complete: false,
-      status: '',
-      response: '',
-      address: '',
-      receiver: '',
-      phone: '',
+      status: "",
+      response: "",
+      address: "",
+      receiver: "",
+      phone: "",
       stripeOptions: {
         // you can configure that cc element. I liked the default, but you can
         // see https://stripe.com/docs/stripe.js#element-options for details
       },
-      stripeEmail: ''
+      stripeEmail: ""
     };
   },
   methods: {
@@ -94,15 +92,15 @@ export default {
         this.submitted = true;
         // eslint-disable-next-line
         console.log(data.token); //this is a token we would use for the stripeToken below
-        window.tar = this
+        window.tar = this;
         setTimeout(() => {
-          window.tar.status = 'success';
+          window.tar.status = "success";
           window.tar.submitted = true;
-          this.status = 'success';
+          this.status = "success";
           //this.$emit('successSubmit');
           window.makeSuccess();
           window.cartTotal = 0;
-        },5000);
+        }, 5000);
         // axios
         //   .post(
         //     'https://sdras-stripe.azurewebsites.net/api/charge?code=zWwbn6LLqMxuyvwbWpTFXdRxFd7a27KCRCEseL7zEqbM9ijAgj1c1w==',
@@ -139,9 +137,9 @@ export default {
     },
     clearCart() {
       this.submitted = false;
-      this.status = '';
+      this.status = "";
       this.complete = false;
-      this.response = '';
+      this.response = "";
     }
   }
 };
@@ -171,7 +169,7 @@ p {
 label {
   color: black;
   margin: 15px 0 5px;
-  font-family: 'Playfair Display', sans-serif;
+  font-family: "Playfair Display", sans-serif;
 }
 .loadcontain {
   text-align: center;

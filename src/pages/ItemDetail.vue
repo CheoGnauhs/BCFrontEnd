@@ -5,29 +5,10 @@
     </el-header>
 
     <el-main class="display-area">
-      <div class="item-part">
-        <el-carousel class="item-img">
-          <el-carousel-item v-for="item in 4" :key="item">
-            <h3>{{item}}</h3>
-          </el-carousel-item>
-        </el-carousel>
-        <div class="item-info">
-          <h3 class="item-title">百事可乐碳酸汽水饮料整箱600ml*24瓶</h3>
-          <div class="item-price column">
-            价格:
-            <span class="price">69.90</span>二手币
-          </div>
-          <div class="item-description">规格： 600ml*24瓶
-            <br>新老包装替换 随机发货 以实物为准
-            <br>贮存方法：禁止加热或0摄氏度以下冷冻，避免阳光直晒及高温储存，冷饮口味更佳
-            <br>配料表：水，果葡糖浆，白砂糖，食品添加剂（二氧化碳、焦糖色、磷酸、咖啡因、食用香精）详见配料表
-            <br>保质期：365天
-          </div>
-          <div class="button-area">
-            <el-button type="primary">确认购买</el-button>
-            <el-button>添加收藏</el-button>
-          </div>
-        </div>
+      <ItemInfo></ItemInfo>
+      <div class="button-area">
+        <el-button type="primary">确认购买</el-button>
+        <el-button>添加收藏</el-button>
       </div>
       <div class="comment-part">
         <div class="comment-header column">用户评论</div>
@@ -65,10 +46,11 @@
 <script>
 import NavBar from "../components/NavBar.vue";
 import FooterBar from "../components/FooterBar.vue";
+import ItemInfo from "../components/ItemInfo.vue";
 
 export default {
   name: "ItemDetail",
-  components: { NavBar, FooterBar },
+  components: { NavBar, FooterBar, ItemInfo },
   data() {
     return {
       comments: [
@@ -95,37 +77,8 @@ export default {
   width: 1000px;
   margin: 0 auto;
 }
-.item-part {
-  display: flex;
-  justify-items: left;
-}
-.item-info {
-  padding-left: 10px;
-  width: 400px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.item-title {
-  font-size: 20px;
-  margin: 0;
-  text-align: left;
-}
-.item-price {
-  background: rgb(217, 236, 255);
-  font-size: 16px;
-  padding: 10px 0;
-}
-.price {
-  color: #e6a23c;
-}
-.item-description {
-  color: #909399;
-  font-size: 14px;
-  height: 160px;
-}
-.item-img {
-  width: 600px;
+.button-area {
+  margin-top: 10px;
 }
 .comments {
   padding-left: 0;

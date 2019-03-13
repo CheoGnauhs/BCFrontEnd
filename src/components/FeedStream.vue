@@ -1,8 +1,8 @@
 <template>
   <div>
-    <el-card v-for="(item,index) in commodityInformations" :key="index" class="box-card">
+    <el-card v-for="(item,index) in commodityInformations" :key="index" shadow="never" class="box-card">
       <div slot="header" class="card-head">
-        <span>{{item.commodityName}}</span>
+        <span class="commodity-name">{{item.commodityName}}</span>
         <i class="el-icon-delete"></i>
       </div>
       <div class="card-container">
@@ -58,9 +58,9 @@ export default {
 <style scoped>
 .box-card {
   width: 870px;
-  /* height: 200px; */
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin:5px auto;
+  border: solid 1px rgb(140, 197, 255);
+  margin-bottom: 20px;
 }
 .card-head {
   display: flex;
@@ -71,17 +71,17 @@ export default {
   justify-content: space-between;
   align-items: center;
 }
+.commodity-name{
+  font-size: 16px;
+  color: #606266;
+}
 .commodity-details {
-  margin-right: 20px;
+  color: #909399;
+  margin-right: 40px;
 }
 .commodity-info {
+  font-size: 14px;
   display: flex;
-
   flex-wrap: wrap;
-}
-.comment {
-  /* display: flex;
-
-  flex-wrap: nowrap; */
 }
 </style>
