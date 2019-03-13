@@ -1,7 +1,7 @@
 <template>
   <el-row class="card-holder">
     <el-col v-for="(item, index) in items" :key="index" class="card-wrapper">
-      <el-card :body-style="{padding:'0px'}">
+      <el-card shadow="hover" :body-style="{padding:'0px'}">
         <a>
           <img v-bind:src="item.pic" alt="avatar" class="image">
         </a>

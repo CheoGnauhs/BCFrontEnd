@@ -4,7 +4,7 @@
       <NavBar></NavBar>
     </el-header>
     <el-main>
-      <OrderBody></OrderBody>
+      <CardHolder></CardHolder>
     </el-main>
     <el-footer>
       <FooterBar></FooterBar>
@@ -15,16 +15,13 @@
 <script>
 import NavBar from "../components/NavBar.vue";
 import FooterBar from "../components/FooterBar.vue";
-import OrderBody from "../components/OrderBody.vue";
+import CardHolder from "../components/CardHolder.vue";
 
 export default {
   name: "Register",
-  components: { NavBar, FooterBar, OrderBody }
+  components: { NavBar, FooterBar, CardHolder }
 };
 </script>
 
 <style scoped>
-.el-container{
-  margin-top: 30px;
-}
 </style>

@@ -24,7 +24,4 @@ export default {
 </script>
 
 <style scoped>
-.el-container{
-  margin-top: 30px;
-}
 </style>
