@@ -18,7 +18,12 @@
         <el-input v-model="registerInfo.checkPassword" type="password"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button @click="register('registerInfo')" class="wide-button" type="primary">确认注册</el-button>
+        <el-button
+          :loading="loadState"
+          @click="validateForm('registerInfo')"
+          class="wide-button"
+          type="primary"
+        >确认注册</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -75,6 +80,7 @@ export default {
       }
     };
     return {
+      loadState: false,
       registerInfo: {
         username: "",
         telephone: "",
@@ -123,13 +129,31 @@ export default {
     };
   },
   methods: {
-    register(registerInfo) {
+    validateForm(registerInfo) {
+      this.loadState = true;
       this.$refs[registerInfo].validate(valid => {
+        let url = "http://5c888fbf41fb3f001434bc34.mockapi.io/api/v1/register";
+        let data = {
+          username: this.registerInfo.username,
+          password: this.registerInfo.password,
+          email: this.registerInfo.email,
+          telephone: this.registerInfo.telephone
+        };
         if (valid) {
-          alert("表单验证成功!");
+          fetch(url, {
+            method: "POST",
+            body: JSON.stringify(data)
+          }).then(res=>{
+            return res.json();
+          }).then(res=>{
+            if(res.result=="success"){
+              this.$alert("success");
+              this.loadState = false;
+            }
+          });
+          return true;
         } else {
-          // eslint-disable-next-line
-          console.log("表单验证失败!");
+          this.loadState = false;
           return false;
         }
       });
@@ -141,7 +165,7 @@ export default {
 <style scoped>
 .register-body {
   border-radius: 5px;
-  border: 1px #DCDFE6 solid;
+  border: 1px #dcdfe6 solid;
   width: 350px;
   padding: 20px;
   margin: 0 auto;

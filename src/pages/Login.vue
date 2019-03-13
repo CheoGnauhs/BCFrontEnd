@@ -19,15 +19,16 @@ import FooterBar from "../components/FooterBar.vue";
 
 export default {
   name: "Login",
-  components: { 
-    LogoBar, 
-    LoginBody, 
-    FooterBar }
+  components: {
+    LogoBar,
+    LoginBody,
+    FooterBar
+  }
 };
 </script>
 
 <style scoped>
-.el-container{
-  margin-top:30px;
+.el-container {
+  margin-top: 30px;
 }
 </style>

@@ -44,14 +44,12 @@ export default {
   overflow: hidden;
 }
 .shool-info {
-  color: #637787;
   font-size: 14px;
 }
 .user-name {
   font-size: 21px;
 }
 .credit-info {
-  color: #0da2f6;
   font-size: 14px;
 }
 </style>

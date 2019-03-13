@@ -6,12 +6,13 @@
         <el-input v-model="userInfo.username"></el-input>
       </el-form-item>
       <el-form-item label="密码">
-        <el-input v-model="userInfo.password"></el-input>
+        <el-input type="password" v-model="userInfo.password"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button class="wide-button" type="primary" @click="onLogin">登陆</el-button>
+        <el-button :loading="loadState" class="wide-button" type="primary" @click="onLogin">登陆</el-button>
       </el-form-item>
-      <p>新用户？点击
+      <p>
+        新用户？点击
         <a href="/#/register">这里</a>
         注册
       </p>
@@ -24,6 +25,7 @@ export default {
   name: "LoginBody",
   data() {
     return {
+      loadState: false,
       userInfo: {
         username: "",
         password: ""
@@ -32,24 +34,37 @@ export default {
   },
   methods: {
     onLogin: function() {
+      this.loadState = true;
+      let url = "http://5c888fbf41fb3f001434bc34.mockapi.io/api/v1/login";
       let data = {
         username: this.userInfo.username,
         password: this.userInfo.password
       };
-      // eslint-disable-next-line
-      console.log(data);
+      fetch(url, {
+        method: "POST",
+        body: JSON.stringify(data)
+      })
+        .then(res => {
+          return res.json();
+        })
+        .then(res => {
+          if (res.result === "success") {
+            alert("done");
+          }
+          this.loadState = false;
+        });
     }
   }
 };
 </script>
 
 <style scoped>
-p{
+p {
   font-size: 14px;
 }
 .login-body {
   border-radius: 5px;
-  border: 1px #DCDFE6 solid;
+  border: 1px #dcdfe6 solid;
   width: 300px;
   padding: 20px;
   margin: 0 auto;
