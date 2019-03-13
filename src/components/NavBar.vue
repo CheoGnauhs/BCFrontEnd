@@ -12,13 +12,9 @@
           <el-menu-item index="2">
             <a href="#/new-item">物品发布</a>
           </el-menu-item>
-          <el-submenu index="3">
-            <template slot="title">个人信息</template>
-            <el-menu-item index="3-1">我的订单</el-menu-item>
-            <el-menu-item index="3-2">我的物品</el-menu-item>
-            <el-menu-item index="3-3">我的收藏</el-menu-item>
-            <el-menu-item index="/credit">我的信用</el-menu-item>
-          </el-submenu>
+          <el-menu-item index="3">
+            <a href="#/user-center">个人中心</a>
+          </el-menu-item>
         </el-menu>
       </el-col>
       <el-col class="search-wrapper">

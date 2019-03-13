@@ -1,11 +1,15 @@
 <template>
   <div class="profile-card">
-    <img class="avatar" :src="avatarSrc.src" alt="avatar">
-    <span class="user-name">{{ userName }}</span>
-    <span class="credit-info">芝麻信用：{{ zhimaCredit }}</span>
-    <span class="credit-info">区块链信用：{{ blockChainCredit }}</span>
-    <span class="shool-info">{{ school }}</span>
-    <span class="shool-info">{{ campus }}</span>
+    <img class="avatar" :src="userInfo.avatarSrc" alt="avatar">
+    <div class="user-name">{{userInfo.userName}}</div>
+    <div class="user-info">
+      <img class="tag" src="../assets/location.png" alt="location">
+      {{userInfo.location}}
+    </div>
+    <div class="user-info">
+      <img class="tag" src="../assets/email.png" alt="email">
+      {{userInfo.email}}
+    </div>
   </div>
 </template>
 
@@ -14,14 +18,12 @@ export default {
   name: "ProfileCard",
   data() {
     return {
-      userName: "岩松松松松松",
-      zhimaCredit: 0,
-      blockChainCredit: 0,
-      certification: false,
-      school: "同济大学",
-      campus: "四平校区",
-      profiles: "这个人",
-      avatarSrc: { src: require("../assets/avatar.jpg") }
+      userInfo: {
+        userName: "谭爽爽爽爽",
+        location: "同济大学",
+        email: "tshuang96@gmail.com",
+        avatarSrc: require("../assets/avatar.jpg")
+      }
     };
   }
 };
@@ -31,23 +33,27 @@ export default {
 .profile-card {
   display: flex;
   flex-direction: column;
-  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
-    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
 }
 .avatar {
-  width: 100px;
-  height: 100px;
-  display: flex;
-  border-radius: 50%;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
+  width: 175px;
+  height: 175px;
+  border-radius: 5px;
 }
-.shool-info {
+.tag{
+  margin-right: 3px;
+}
+.user-info {
+  display: flex;
+  align-items: center;
   font-size: 14px;
+  color: #909399;
+  margin-top: 5px;
 }
 .user-name {
-  font-size: 21px;
+  font-size: 16px;
+  padding: 15px 0 10px 0;
+  border-bottom: solid 1px #dcdfe6;
+  color: #606266;
 }
 .credit-info {
   font-size: 14px;

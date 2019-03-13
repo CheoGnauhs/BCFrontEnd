@@ -4,8 +4,12 @@
       <NavBar></NavBar>
     </el-header>
     <el-main>
-      <ProfileCard></ProfileCard>
-      <FeedStream></FeedStream>
+      <div class="center-left">
+        <ProfileCard></ProfileCard>
+      </div>
+      <div class="center-right">
+        <FeedStream></FeedStream>
+      </div>
     </el-main>
     <el-footer>
       <FooterBar></FooterBar>
@@ -20,7 +24,7 @@ import FeedStream from "../components/FeedStream.vue";
 import ProfileCard from "../components/ProfileCard.vue";
 
 export default {
-  name: "Profile",
+  name: "UserCenter",
   components: {
     NavBar,
     FeedStream,
@@ -34,6 +38,6 @@ export default {
 .el-main {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
 }
 </style>
