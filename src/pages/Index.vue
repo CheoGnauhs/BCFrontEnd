@@ -6,7 +6,9 @@
 
     <el-main>
       <ItemCarosel></ItemCarosel>
-      <CardHolder></CardHolder>
+      <div>
+        <CardHolder></CardHolder>
+      </div>
     </el-main>
 
     <el-footer>

@@ -25,7 +25,6 @@ export default {
           from: "发货地发货地发货地发货地发货地发货地发货地发货地",
           to: "收获地收获地收获地收获地收获地收获地收获地",
           userName: "asdeasd",
-          rate: 3.4,
           userId: "userID",
           time: "Tue Mar 12 2019",
           orderId: "21ABEA9BFC7DD1B411F63F624759EBA60B3898F757B4A343816173655E1C10B7"

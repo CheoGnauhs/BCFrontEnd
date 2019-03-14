@@ -3,7 +3,9 @@
     <el-button id="change-button" type="primary">修改信息</el-button>
     <div class="card-wrapper">
       <div class="card-head">
-        <span>基本信息</span>
+        <span slot="title">
+          <i class="el-icon-info"></i>基本信息
+        </span>
       </div>
       <div class="card-container">
         <span class="user-info">姓名：{{ userInfo.username }}</span>
@@ -13,19 +15,31 @@
     </div>
     <div class="card-wrapper">
       <div class="card-head">
-        <span>学校信息</span>
+        <span>
+          <i class="el-icon-location"></i>居住信息
+        </span>
       </div>
       <div class="card-container">
-        <span class="user-info">学校名称：{{ userInfo.school }}</span>
-        <span class="user-info">所在校区：{{ userInfo.campus }}</span>
+        <span class="user-info">行政区划：{{ userInfo.district }}</span>
+        <span class="user-info">详细地址：{{ userInfo.address }}</span>
       </div>
     </div>
     <div class="card-wrapper">
       <div class="card-head">
-        <span>区块信息</span>
+        <span>
+          <i class="el-icon-share"></i>区块链信息
+        </span>
       </div>
       <div class="card-container">
-        <span class="user-info">区块信用评分：{{ userInfo.blockChainCredit }}</span>
+        <span class="user-info">信用评分：
+          <el-rate
+            class="user-rate"
+            v-model="userInfo.creditRate"
+            disabled="true"
+            show-score="true"
+            allow-half="true"
+          ></el-rate>
+        </span>
         <span class="user-info">区块记录数目：{{ userInfo.blockChainNum }}</span>
       </div>
     </div>
@@ -44,9 +58,10 @@ export default {
         zhimaCredit: 0,
         blockChainCredit: 0,
         blockChainNum: 0,
-        school: "同济大学",
-        campus: "四平校区",
-        avatarSrc: require("../assets/avatar.jpg")
+        district: "上海市杨浦区",
+        address: "四平路1239号同济大学",
+        avatarSrc: require("../assets/avatar.jpg"),
+        creditRate: "4.8"
       }
     };
   }
@@ -78,6 +93,9 @@ export default {
 .card-wrapper {
   margin-bottom: 15px;
 }
+.card-wrapper:last-child {
+  margin: 0;
+}
 .card-head {
   font-size: 16px;
   margin-bottom: 10px;
@@ -90,7 +108,12 @@ export default {
   flex-direction: column;
   justify-content: space-around;
 }
+.user-rate {
+  display: inline-block;
+}
 .user-info {
+  display: flex;
+  align-items: center;
   margin-bottom: 5px;
 }
 </style>
