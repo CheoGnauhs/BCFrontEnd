@@ -2,11 +2,11 @@
   <el-row class="card-holder">
     <el-col v-for="(item, index) in items" :key="index" class="card-wrapper">
       <el-card shadow="hover" :body-style="{padding:'0px'}">
-        <a>
+        <router-link to="/">
           <img v-bind:src="item.pic" alt="avatar" class="image">
-        </a>
+        </router-link>
         <div class="content">
-          <a class="title">{{item.title}}</a>
+          <router-link to="/" class="title">{{item.title}}</router-link>
           <div class="price-wrapper">
             价格:
             <span class="price">
@@ -15,7 +15,7 @@
           </div>
           <div class="seller-wrapper">
             提供者:
-            <a class="seller">{{item.seller}}</a>
+            <router-link to="/" class="seller">{{item.seller}}</router-link>
           </div>
         </div>
       </el-card>

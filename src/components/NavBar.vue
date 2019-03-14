@@ -7,13 +7,13 @@
       <el-col>
         <el-menu :default-active="actpage" class="el-menu-demo" mode="horizontal">
           <el-menu-item index="1">
-            <a href="/">首页</a>
+            <router-link to="/">首页</router-link>
           </el-menu-item>
           <el-menu-item index="2">
-            <a href="#/new-item">物品发布</a>
+            <router-link to="/new-item">物品发布</router-link>
           </el-menu-item>
           <el-menu-item index="3">
-            <a href="#/user-center">个人中心</a>
+            <router-link to="/user-center">个人中心</router-link>
           </el-menu-item>
         </el-menu>
       </el-col>
@@ -29,9 +29,9 @@
     </el-col>
     <el-col class="link-wrapper" :span="2">
       <span class="link-area">
-        <a href="/#/login">登陆</a>
+        <router-link to="/login">登陆</router-link>
         /
-        <a href="/#/register">注册</a>
+        <router-link to="/register">注册</router-link>
       </span>
     </el-col>
   </el-row>

@@ -13,7 +13,7 @@
       </el-form-item>
       <p>
         新用户？点击
-        <a href="/#/register">这里</a>
+        <router-link to="/register">这里</router-link>
         注册
       </p>
     </el-form>

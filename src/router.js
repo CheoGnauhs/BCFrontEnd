@@ -10,7 +10,7 @@ import Check from "./pages/Check";
 import OrderDetail from "./pages/OrderDetail";
 
 const router = new VueRouter({
-  mode: "hash",
+  mode: "history",
   routes: [{
     path: "/",
     component: Index

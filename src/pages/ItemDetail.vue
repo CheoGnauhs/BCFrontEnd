@@ -23,12 +23,12 @@
               <div class="comment-message">
                 <div class="comment-time">{{comment.timestamp}}</div>
                 <div class="comment-op">
-                  <a class="op-btn" href>
+                  <router-link class="op-btn" href>
                     <i class="a-thumb"></i>0
-                  </a>
-                  <a class="op-btn" href>
+                  </router-link>
+                  <router-link class="op-btn" href>
                     <i class="a-comment"></i>0
-                  </a>
+                  </router-link>
                 </div>
               </div>
             </div>
