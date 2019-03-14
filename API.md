@@ -1,5 +1,42 @@
-API列表  
-=======
+# API列表  
+
+如未特别说明，请求和响应格式都是 JSON。考虑后面把所有的 API 都放到 `/api` 下面。
+
+## 用户操作
+
+### 新建用户
+
+- 方法：`POST`
+- 路径：`/users`
+- 参数
+  - `handle`（用户名）
+  - `password`
+  - `password_confirmation`
+  - `location`
+  - `email`
+  - `telephone`
+- 响应
+  - `handle`
+  - `location`
+  - `email`
+  - `telephone`
+  - `token`
+  - `expire_at`（登录态结束时间，零时区）
+
+## 登录态操作
+
+### 登录
+
+- 方法 `POST`
+- 路径 `/sessions`
+- 参数
+  - `handle`
+  - `password`
+- 响应
+  - `token`
+  - `expire_at`
+
+---
 
 ##用户 /user  
   * 新建用户(注册)  
