@@ -1,24 +1,24 @@
 <template>
   <div>
-    <div v-if="!submitted" class="payment">
-      <h3>请确认订单信息</h3>
-      <el-input placeholder="如：上海市杨浦区四平路同济大学" v-model="address">
-        <template slot="prepend">请输入地址</template>
-      </el-input>
-      <el-input placeholder="收件人" v-model="receiver">
-        <template slot="prepend">请输入收件人</template>
-      </el-input>
-      <el-input placeholder="+86" v-model="phone" type="number">
-        <template slot="prepend">请输入联系方式</template>
-      </el-input>
-      <el-button type="primary" @click="pay">确认购买</el-button>
+    <div class="your-info">
+      <h3 class="payment-title">请确认您的信息</h3>
+      <el-form>
+        <el-form-item class="confirm-input" label="收货人">
+          <el-input disabled="true" v-model="receiver"></el-input>
+        </el-form-item>
+        <el-form-item class="confirm-input" label="地址">
+          <el-input v-model="address"></el-input>
+        </el-form-item>
+        <el-form-item class="confirm-input" label="联系方式">
+          <el-input v-model="phone"></el-input>
+        </el-form-item>
+      </el-form>
+      <el-button type="primary">确认购买</el-button>
     </div>
   </div>
 </template>
 
 <script>
-import { createToken } from "vue-stripe-elements-plus";
-
 export default {
   components: {},
   props: {
@@ -37,86 +37,29 @@ export default {
       complete: false,
       status: "",
       response: "",
-      address: "",
-      receiver: "",
-      phone: "",
-      stripeOptions: {
-        // you can configure that cc element. I liked the default, but you can
-        // see https://stripe.com/docs/stripe.js#element-options for details
-      },
-      stripeEmail: ""
+      address: "上海市杨浦区四平路1239号同济大学",
+      receiver: "谭爽",
+      phone: "17621476826"
     };
   },
-  methods: {
-    pay() {
-      createToken().then(data => {
-        this.submitted = true;
-        // eslint-disable-next-line
-        console.log(data.token); //this is a token we would use for the stripeToken below
-        window.tar = this;
-        setTimeout(() => {
-          window.tar.status = "success";
-          window.tar.submitted = true;
-          this.status = "success";
-          //this.$emit('successSubmit');
-          window.makeSuccess();
-          window.cartTotal = 0;
-        }, 5000);
-        // axios
-        //   .post(
-        //     'https://sdras-stripe.azurewebsites.net/api/charge?code=zWwbn6LLqMxuyvwbWpTFXdRxFd7a27KCRCEseL7zEqbM9ijAgj1c1w==',
-        //     {
-        //       stripeEmail: this.stripeEmail,
-        //       stripeToken: 'tok_visa', //testing token
-        //       stripeAmt: this.total
-        //     },
-        //     {
-        //       headers: {
-        //         'Content-Type': 'application/json'
-        //       }
-        //     }
-        //   )
-        //   .then(response => {
-        //     this.status = 'success';
-        //     this.$emit('successSubmit');
-        //     this.$store.commit('clearCartCount');
-
-        //     //console logs for you :)
-        //     this.response = JSON.stringify(response, null, 2);
-        //     // eslint-disable-next-line
-        //     console.log(this.response);
-        //   })
-        //   .catch(error => {
-        //     this.status = 'failure';
-
-        //     //console logs for you :)
-        //     this.response = 'Error: ' + JSON.stringify(error, null, 2);
-        //     // eslint-disable-next-line
-        //     console.log(this.response);
-        //   });
-      });
-    },
-    clearCart() {
-      this.submitted = false;
-      this.status = "";
-      this.complete = false;
-      this.response = "";
-    }
-  }
+  methods: {}
 };
 </script>
 
 <style scoped>
-.payment {
-  border: 1px solid #ccc;
-  color: black;
-  width: 500px;
-  padding: 50px;
-  display: flex;
-  flex-direction: column;
-  min-height: 350px;
-  justify-content: space-between;
-  text-align: center;
+.payment{
+  width: 1000px;
+}
+.payment-title {
+  background: rgb(217, 236, 255);
+  margin: 0;
+  padding: 10px 0;
+  margin: 10px 0;
+  font-size: 18px;
+  font-weight: normal;
+}
+.confirm-input{
+  width: 600px;
 }
 .statussubmit {
   text-align: center;

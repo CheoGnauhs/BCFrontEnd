@@ -40,6 +40,7 @@ export default {
 .item-part {
   display: flex;
   justify-items: left;
+  width: 1000px;
 }
 h3 {
   text-align: center;
@@ -77,5 +78,14 @@ h3 {
 }
 .item-img {
   width: 600px;
+}
+h3 {
+  text-align: center;
+}
+.el-carousel__item:nth-child(2n) {
+  background-color: #99a9bf;
+}
+.el-carousel__item:nth-child(2n + 1) {
+  background-color: #d3dce6;
 }
 </style>
