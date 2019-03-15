@@ -68,6 +68,7 @@ p {
   width: 300px;
   padding: 20px;
   margin: 0 auto;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
 }
 .wide-button {
   width: 100%;
