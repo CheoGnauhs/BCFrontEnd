@@ -1,8 +1,17 @@
 <template>
   <div class="item-carosel">
     <el-carousel type="card" height="400px" arrow="never">
-      <el-carousel-item v-for="item in 4" :key="item">
-        <h3>{{ item }}</h3>
+      <el-carousel-item>
+        <img class="items" src="../assets/pic3.jpg" alt="pic3">
+      </el-carousel-item>
+      <el-carousel-item>
+        <img class="items" src="../assets/pic1.jpg" alt="pic1">
+      </el-carousel-item>
+      <el-carousel-item>
+        <img class="items" src="../assets/pic2.png" alt="pic2">
+      </el-carousel-item>
+      <el-carousel-item>
+        <img class="items" src="../assets/pic4.jpg" alt="pic4">
       </el-carousel-item>
     </el-carousel>
   </div>
@@ -18,12 +27,13 @@ export default {
 .item-carosel {
   width: 100%;
 }
-.el-carousel__item h3 {
-  color: #475669;
-  font-size: 14px;
-  opacity: 0.75;
-  line-height: 150px;
+.el-carousel__item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 0;
+  border: solid 1px #F2F6FC;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
 }
 .el-carousel__item:nth-child(2n) {
   background-color: #99a9bf;
