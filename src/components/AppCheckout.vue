@@ -1,65 +1,26 @@
 <template>
   <div>
-    <transition name="fade">
-      <div v-if="!submitted" class="payment">
-        <h3>请确认订单信息</h3>
-
-        <el-input placeholder="如：上海市杨浦区四平路同济大学" v-model="address">
-          <template slot="prepend">请输入地址</template>
-        </el-input>
-
-        <el-input placeholder="收件人" v-model="receiver">
-          <template slot="prepend">请输入收件人</template>
-        </el-input>
-
-        <el-input placeholder="+86" v-model="phone" type="number">
-          <template slot="prepend">请输入联系方式</template>
-        </el-input>
-
-        <label for="card">Credit Card</label>
-
-        <card
-          class="stripe-card"
-          id="card"
-          :class="{ complete }"
-          stripe="pk_test_5ThYi0UvX3xwoNdgxxxTxxrG"
-          :options="stripeOptions"
-          @change="complete = $event.complete"
-        />
-        <el-button
-          type="primary"
-          round
-          @click="pay"
-          :disabled="!complete || !address || !receiver || !phone"
-        >Pay with credit card</el-button>
-      </div>
-
-      <div v-else class="statussubmit">
-        <div v-if="status === 'failure'">
-          <h3>Oh No!</h3>
-          <p>Something went wrong!</p>
-          <button @click="clearCart">Please try again</button>
-        </div>
-
-        <div v-else class="loadcontain">
-          <h4>Please hold, we're filling up your cart with goodies</h4>
-          <app-loader/>
-        </div>
-      </div>
-    </transition>
+    <div v-if="!submitted" class="payment">
+      <h3>请确认订单信息</h3>
+      <el-input placeholder="如：上海市杨浦区四平路同济大学" v-model="address">
+        <template slot="prepend">请输入地址</template>
+      </el-input>
+      <el-input placeholder="收件人" v-model="receiver">
+        <template slot="prepend">请输入收件人</template>
+      </el-input>
+      <el-input placeholder="+86" v-model="phone" type="number">
+        <template slot="prepend">请输入联系方式</template>
+      </el-input>
+      <el-button type="primary" @click="pay">确认购买</el-button>
+    </div>
   </div>
 </template>
 
 <script>
-import { Card, createToken } from "vue-stripe-elements-plus";
-import AppLoader from "./AppLoader.vue";
-// import axios from 'axios';
+import { createToken } from "vue-stripe-elements-plus";
 
 export default {
-  components: {
-    Card,
-    AppLoader
-  },
+  components: {},
   props: {
     total: {
       type: [Number, String],

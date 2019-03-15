@@ -5,7 +5,7 @@
     </el-header>
     <el-main class="main-body">
       <ItemInfo></ItemInfo>
-      <CheckBody></CheckBody>
+      <AppCheckout></AppCheckout>
     </el-main>
     <el-footer>
       <FooterBar></FooterBar>
@@ -17,18 +17,15 @@
 import NavBar from "../components/NavBar.vue";
 import FooterBar from "../components/FooterBar.vue";
 import ItemInfo from "../components/ItemInfo.vue";
-import CheckBody from "../components/CheckBody.vue";
+import AppCheckout from "../components/AppCheckout.vue";
 
 export default {
   name: "Register",
-  components: { NavBar, FooterBar, ItemInfo, CheckBody }
+  components: { NavBar, FooterBar, ItemInfo, AppCheckout }
 };
 </script>
 
 <style scoped>
-.el-container {
-  margin-top: 30px;
-}
 .main-body{
   display:flex;
   flex-direction:column;
