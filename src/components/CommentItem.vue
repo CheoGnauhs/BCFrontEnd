@@ -31,10 +31,10 @@
     </div>
     <el-collapse-transition>
       <div v-show="pannelDisplay" class="reply-pannel">
-        <el-input class="input-pannel" v-model="replyItem" placeholder="在此输入回复内容">
+        <el-input class="input-pannel" v-model="replyItem.content" placeholder="在此输入回复内容">
           <i class="el-icon-edit el-input__icon" slot="suffix"></i>
         </el-input>
-        <el-button class="input-button" type="primary">回复</el-button>
+        <el-button @click="reply" class="input-button" type="primary">回复</el-button>
       </div>
     </el-collapse-transition>
   </li>
@@ -45,11 +45,25 @@ export default {
   name: "CommentItem",
   props: ["detail"],
   data() {
+    var getTime = () => {
+      let date = new Date();
+      return date.toLocaleString();
+    };
     return {
+      replyItem: {
+        replyto: this.detail.name,
+        content: "",
+        timestamp: getTime()
+      },
       pannelDisplay: false
     };
   },
-  methods: {}
+  methods: {
+    reply: function() {
+      // eslint-disable-next-line
+      console.log(this.replyItem);
+    }
+  }
 };
 </script>
 
