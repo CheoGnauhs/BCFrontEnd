@@ -3,7 +3,7 @@
     <div class="comment-header column">用户评论</div>
     <ul class="comments" v-for="(comment,index) in comments" :key="index">
       <CommentItem :detail="comment"></CommentItem>
-      <ul class="commets-replies" v-for="(reply,index) in comment.replies" :key="index">
+      <ul class="comments-replies" v-for="(reply,index) in comment.replies" :key="index">
         <CommentItem :detail="reply"></CommentItem>
       </ul>
     </ul>
