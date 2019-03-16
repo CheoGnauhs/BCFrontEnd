@@ -35,13 +35,34 @@ export default {
           avatar: require("../assets/avatar.jpg"),
           name: "吕岩松",
           content: "看起来可以",
-          timestamp: "2019-03-07 11:08"
+          timestamp: "2019-03-07 11:08",
+          thumb: "0",
+          replies: [
+            {
+              replyto: "吕岩松",
+              avatar: require("../assets/avatar.jpg"),
+              name: "吕岩松",
+              content: "其实还是不行",
+              timestamp: "2019-03-16 12:08",
+              thumb: "0",
+            },
+            {
+              replyto: "吕岩松",
+              avatar: require("../assets/avatar.jpg"),
+              name: "吕岩松",
+              content: "其实还是可以",
+              timestamp: "2019-03-16 12:09",
+              thumb: "0",
+            }
+          ]
         },
         {
           avatar: require("../assets/avatar.jpg"),
           name: "吕岩松",
           content: "看起来不行",
-          timestamp: "2019-03-07 11:08"
+          timestamp: "2019-03-07 11:08",
+          thumb: "0",
+          replies: []
         }
       ]
     };
