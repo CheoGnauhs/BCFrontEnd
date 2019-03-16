@@ -1,8 +1,9 @@
 <template>
   <el-row class="nav-bar" type="flex" justify="space-between">
     <el-col class="left-area">
-      <el-col>
+      <el-col class="logo-area">
         <img class="logo" src="../assets/logo.png" alt="logo">
+        <span class="logo-text">浣熊</span>
       </el-col>
       <el-col>
         <el-menu :default-active="actpage" class="el-menu-demo" mode="horizontal">
@@ -40,7 +41,7 @@
 <script>
 export default {
   name: "NavBar",
-  props: ['actpage'],
+  props: ["actpage"],
   data() {
     return {
       searchInput: ""
@@ -50,6 +51,16 @@ export default {
 </script>
 
 <style scoped>
+.logo-area {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.logo-text {
+  color: #409eff;
+  font-size: 20px;
+  margin-left: 5px;
+}
 .el-menu {
   border: none !important;
 }

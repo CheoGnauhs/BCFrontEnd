@@ -40,7 +40,6 @@
             allow-half="true"
           ></el-rate>
         </span>
-        <span class="user-info">区块记录数目：{{ userInfo.blockChainNum }}</span>
       </div>
     </div>
   </div>
@@ -55,9 +54,7 @@ export default {
         username: "岩松松松松松",
         telephone: "13112345678",
         email: "1234@tongji.edu.cn",
-        zhimaCredit: 0,
         blockChainCredit: 0,
-        blockChainNum: 0,
         district: "上海市杨浦区",
         address: "四平路1239号同济大学",
         avatarSrc: require("../assets/avatar.jpg"),
