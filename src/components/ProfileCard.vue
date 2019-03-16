@@ -1,14 +1,14 @@
 <template>
   <div class="profile-card">
-    <img class="avatar" :src="userInfo.avatarSrc" alt="avatar">
-    <div class="user-name">{{userInfo.userName}}</div>
+    <img class="avatar" :src="info.avatar" alt="avatar">
+    <div class="user-name">{{info.userName}}</div>
     <div class="user-info">
       <img class="tag" src="../assets/location.png" alt="location">
-      {{userInfo.location}}
+      {{info.location}}
     </div>
     <div class="user-info">
       <img class="tag" src="../assets/email.png" alt="email">
-      {{userInfo.email}}
+      {{info.email}}
     </div>
   </div>
 </template>
@@ -16,15 +16,8 @@
 <script>
 export default {
   name: "ProfileCard",
-  data() {
-    return {
-      userInfo: {
-        userName: "谭爽爽爽爽",
-        location: "同济大学",
-        email: "tshuang96@gmail.com",
-        avatarSrc: require("../assets/avatar.jpg")
-      }
-    };
+  props: {
+    info: Object
   }
 };
 </script>

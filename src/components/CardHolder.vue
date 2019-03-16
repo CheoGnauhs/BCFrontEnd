@@ -65,6 +65,18 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    getData() {
+      fetch('/api/items').then(res => {
+        return res.json()
+      }).then(res => {
+        console.log(res)
+      })
+    }
+  },
+  mounted() {
+    this.getData()
   }
 };
 </script>

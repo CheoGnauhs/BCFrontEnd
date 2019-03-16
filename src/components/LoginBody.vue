@@ -35,24 +35,39 @@ export default {
   methods: {
     onLogin: function() {
       this.loadState = true;
-      let url = "http://5c888fbf41fb3f001434bc34.mockapi.io/api/v1/login";
       let data = {
-        username: this.userInfo.username,
+        handle: this.userInfo.username,
         password: this.userInfo.password
       };
-      fetch(url, {
+      fetch('/api/sessions', {
         method: "POST",
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
+        headers: new Headers({
+          "Content-Type": "application/json"
+        })
       })
         .then(res => {
-          return res.json();
+          if (res.ok) {
+            return res.json();
+          } else {
+            throw new Error()
+          }
         })
         .then(res => {
-          if (res.result === "success") {
-            alert("done");
-          }
-          this.loadState = false;
-        });
+          localStorage.setItem('token', res.token)
+          this.$message({
+            message: '登录成功',
+            type: 'success'
+          })
+          this.loadState = false
+        })
+        .catch(err => {
+          this.$message({
+            message: '登录失败',
+            type: 'error'
+          })
+          this.loadState = false
+        })
     }
   }
 };

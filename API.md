@@ -1,13 +1,13 @@
 # API列表  
 
-如未特别说明，请求和响应格式都是 JSON。考虑后面把所有的 API 都放到 `/api` 下面。
+如未特别说明，请求和响应格式都是 JSON。
 
 ## 用户操作
 
 ### 新建用户
 
 - 方法：`POST`
-- 路径：`/users`
+- 路径：`/api/users`
 - 参数
   - `handle`（用户名）
   - `password`
@@ -28,13 +28,98 @@
 ### 登录
 
 - 方法 `POST`
-- 路径 `/sessions`
+- 路径 `/api/sessions`
 - 参数
   - `handle`
   - `password`
 - 响应
   - `token`
   - `expire_at`
+
+## 商品类操作
+
+### 发布商品
+
+- 方法 `POST`
+- 路径 `/api/items`
+- 参数
+  - `name`
+  - `description`
+  - `image`
+  - `price`
+  - `tags`（字符串数组，表示每个标签的名字）
+- 响应（如果创建成功，和请求参数相同）
+
+### 获取商品列表
+
+- 方法 `GET`
+- 路径 `/api/items`
+- 响应
+  - 数组
+    - `name`
+    - `description`
+    - `image`
+    - `price`
+    - `tags`（数组）
+    - `created_at`
+    - `seller`
+      - `name`
+
+### 搜索商品
+
+- 方法 `GET`
+- 路径 `/api/items/search`
+- 响应（同商品列表）
+
+### 收藏商品
+
+- 方法 `POST`
+- 路径 `/api/items/:item_id/collection`
+
+### 取消收藏商品
+
+- 方法 `DELETE`
+- 路径 `/api/items/:item_id/collection`
+
+## 订单
+
+### 发起订单
+
+- 方法 `POST`
+- 路径 `/api/orders`
+- 参数
+  - `item_id`
+- 响应
+  - `order_id`
+  - `item_id`
+  - `status`
+  - `created_at`
+
+### 取消订单
+
+- 方法 `POST`
+- 路径 `/api/orders/:order_id/cancellation`
+- 响应
+  - `order_id`
+  - `item_id`
+  - `status`
+
+### 查看订单信息
+
+- 方法 `GET`
+- 路径 `/api/orders/:order_id`
+- 响应
+  - `id`
+  - `item`
+    - `name`
+    - `id`
+    - `price`
+  - `express_no`
+  - `status`
+  - `created_at`
+  - `updated_at`
+
+### 变更交易状态
 
 ---
 

@@ -97,6 +97,11 @@ export default {
       this.dialogImageUrl = file.url;
       this.dialogVisible = true;
     }
+  },
+  mounted() {
+    if (!localStorage.getItem('token')) {
+      this.$router.replace('/login')
+    }
   }
 };
 </script>

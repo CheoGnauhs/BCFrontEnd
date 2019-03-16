@@ -5,7 +5,7 @@
     </el-header>
     <el-main>
       <div class="center-left">
-        <ProfileCard></ProfileCard>
+        <ProfileCard :info="userInfo"></ProfileCard>
       </div>
       <div class="center-right">
         <!-- <FeedStream></FeedStream> -->
@@ -20,7 +20,7 @@
             <FeedStream></FeedStream>
           </el-tab-pane>
           <el-tab-pane label="我的信息">
-            <CreditBody></CreditBody>
+            <CreditBody :info="userInfo"></CreditBody>
           </el-tab-pane>
         </el-tabs>
       </div>
@@ -46,6 +46,40 @@ export default {
     FooterBar,
     ProfileCard,
     CreditBody
+  },
+  data() {
+    return {
+      userInfo: {}
+    }
+  },
+  methods: {
+    getData() {
+      fetch('/api/profile', {
+        method: "GET",
+        headers: new Headers({
+          "Content-Type": "application/json",
+          "Authorization": localStorage.getItem('token')
+        })
+      }).then(res => {
+        if (res.ok) {
+          return res.json()
+        } else if (res.unauthorized) {
+          localStorage.removeItem('token')
+          this.$router.replace('/login')
+        } else {
+          throw new Error()
+        }
+      }).then(res => {
+        this.userInfo = res
+      })
+    }
+  },
+  mounted() {
+    if (!localStorage.getItem('token')) {
+      this.$router.replace('/login')
+      return
+    }
+    this.getData()
   }
 };
 </script>

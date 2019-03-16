@@ -8,9 +8,9 @@
         </span>
       </div>
       <div class="card-container">
-        <span class="user-info">姓名：{{ userInfo.username }}</span>
-        <span class="user-info">手机：{{ userInfo.telephone }}</span>
-        <span class="user-info">邮箱：{{ userInfo.email }}</span>
+        <span class="user-info">姓名：{{ info.handle }}</span>
+        <span class="user-info">手机：{{ info.telephone }}</span>
+        <span class="user-info">邮箱：{{ info.email }}</span>
       </div>
     </div>
     <div class="card-wrapper">
@@ -20,8 +20,8 @@
         </span>
       </div>
       <div class="card-container">
-        <span class="user-info">行政区划：{{ userInfo.district }}</span>
-        <span class="user-info">详细地址：{{ userInfo.address }}</span>
+        <span class="user-info">行政区划：{{ info.district }}</span>
+        <span class="user-info">详细地址：{{ info.address }}</span>
       </div>
     </div>
     <div class="card-wrapper">
@@ -34,7 +34,7 @@
         <span class="user-info">信用评分：
           <el-rate
             class="user-rate"
-            v-model="userInfo.creditRate"
+            v-model="info.credit"
             disabled="true"
             show-score="true"
             allow-half="true"
@@ -48,19 +48,27 @@
 <script>
 export default {
   name: "CreditBody",
+  props: {
+    info: Object
+  },
   data() {
     return {
-      userInfo: {
-        username: "岩松松松松松",
-        telephone: "13112345678",
-        email: "1234@tongji.edu.cn",
-        blockChainCredit: 0,
-        district: "上海市杨浦区",
-        address: "四平路1239号同济大学",
-        avatarSrc: require("../assets/avatar.jpg"),
-        creditRate: "4.8"
-      }
+      // userInfo: {
+      //   username: "岩松松松松松",
+      //   telephone: "13112345678",
+      //   email: "1234@tongji.edu.cn",
+      //   blockChainCredit: 0,
+      //   district: "上海市杨浦区",
+      //   address: "四平路1239号同济大学",
+      //   avatarSrc: require("../assets/avatar.jpg"),
+      //   creditRate: "4.8"
+      // }
     };
+  },
+  computed: {
+    userInfo() {
+      this.$parent.$data.userInfo
+    }
   }
 };
 </script>

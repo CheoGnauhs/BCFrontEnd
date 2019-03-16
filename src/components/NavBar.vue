@@ -29,7 +29,10 @@
       </el-col>
     </el-col>
     <el-col class="link-wrapper" :span="2">
-      <span class="link-area">
+      <span class="link-area" v-if="hasToken">
+        <a @click="signout">退出登录</a>
+      </span>
+      <span class="link-area" v-else>
         <router-link to="/login">登陆</router-link>
         /
         <router-link to="/register">注册</router-link>
@@ -46,6 +49,17 @@ export default {
     return {
       searchInput: ""
     };
+  },
+  methods: {
+    signout() {
+      localStorage.removeItem('token')
+      this.$router.go('/')
+    }
+  },
+  computed: {
+    hasToken() {
+      return localStorage.getItem('token')
+    }
   }
 };
 </script>

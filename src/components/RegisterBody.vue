@@ -132,28 +132,44 @@ export default {
     validateForm(registerInfo) {
       this.loadState = true;
       this.$refs[registerInfo].validate(valid => {
-        let url = "http://5c888fbf41fb3f001434bc34.mockapi.io/api/v1/register";
         let data = {
-          username: this.registerInfo.username,
+          handle: this.registerInfo.username,
           password: this.registerInfo.password,
+          /* Make backend happy. */
+          password_confirmation: this.registerInfo.password,
           email: this.registerInfo.email,
           telephone: this.registerInfo.telephone
         };
         if (valid) {
-          fetch(url, {
+          fetch('/api/users', {
             method: "POST",
-            body: JSON.stringify(data)
-          }).then(res=>{
-            return res.json();
-          }).then(res=>{
-            if(res.result=="success"){
-              this.$alert("success");
-              this.loadState = false;
+            body: JSON.stringify(data),
+            headers: new Headers({
+              "Content-Type": "application/json"
+            })
+          }).then(res =>{
+            if (res.ok) {
+              return res.json()
+            } else {
+              throw new Error()
             }
-          });
+          }).then(res => {
+            localStorage.setItem('token', res.token)
+            this.$message({
+              message: '注册成功',
+              type: 'success'
+            })
+            this.loadState = false
+          }).catch(err => {
+            this.$message({
+              message: '注册失败',
+              type: 'error'
+            })
+            this.loadState = false
+          })
           return true;
         } else {
-          this.loadState = false;
+          this.loadState = false
           return false;
         }
       });
