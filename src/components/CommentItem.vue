@@ -15,27 +15,41 @@
       <div class="comment-message">
         <div class="comment-time">{{detail.timestamp}}</div>
         <div class="comment-op">
-          <span class="op-btn" href>
+          <span class="op-btn">
             <i class="a-thumb"></i>0
           </span>
-          <!-- 回复为空时不显示，不为空时显示回复条数 -->
-          <span v-if="detail.replies!=null" class="op-btn" href>
+          <!-- 不为空时显示回复条数,回复为空时不显示数字 -->
+          <span v-if="detail.replies!=null" class="op-btn" @click="pannelDisplay = !pannelDisplay">
             <i class="a-comment"></i>
             {{detail.replies.length}}
           </span>
-          <span v-else class="op-btn" href>
+          <span v-else class="op-btn" @click="pannelDisplay = !pannelDisplay">
             <i class="a-comment"></i>
           </span>
         </div>
       </div>
     </div>
+    <el-collapse-transition>
+      <div v-show="pannelDisplay" class="reply-pannel">
+        <el-input class="input-pannel" v-model="replyItem" placeholder="在此输入回复内容">
+          <i class="el-icon-edit el-input__icon" slot="suffix"></i>
+        </el-input>
+        <el-button class="input-button" type="primary">回复</el-button>
+      </div>
+    </el-collapse-transition>
   </li>
 </template>
 
 <script>
 export default {
   name: "CommentItem",
-  props: ["detail"]
+  props: ["detail"],
+  data() {
+    return {
+      pannelDisplay: false
+    };
+  },
+  methods: {}
 };
 </script>
 
@@ -117,5 +131,15 @@ export default {
 }
 .a-thumb:hover {
   background-image: url("../assets/thumb-active.png");
+}
+.reply-pannel {
+  margin: 10px;
+}
+.input-pannel {
+  width: 400px;
+}
+.input-button {
+  width: 70px;
+  margin-left: 5px;
 }
 </style>
