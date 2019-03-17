@@ -5,9 +5,9 @@
     </el-header>
 
     <el-main>
-      <ItemCarosel></ItemCarosel>
+      <ItemCarosel v-if="isIndexPage" />
       <div>
-        <CardHolder></CardHolder>
+        <CardHolder :items="items" />
       </div>
     </el-main>
 
@@ -29,6 +29,37 @@ export default {
     FooterBar,
     ItemCarosel,
     CardHolder
+  },
+  data() {
+    return {
+      items: []
+    }
+  },
+  methods: {
+    getData() {
+      let url = '/api/items'
+      if (this.$route.path == '/search') {
+        url = '/api/items/search?q=' + this.$route.query['q']
+      }
+      fetch(url, {
+        headers: new Headers({
+          'Authorization': localStorage.getItem('token')
+        })
+      }).then(res => {
+        return res.json();
+      }).then(res => {
+        this.items = res
+      });
+    }
+  },
+  computed: {
+    isIndexPage() {
+      return this.$route.path == '/'
+    }
+  },
+  // FIXME: 从搜索界面回退，数据不会更新
+  mounted() {
+    this.getData()
   }
 };
 </script>

@@ -23,9 +23,8 @@
           class="search-input"
           placeholder="请输入您要搜索的物品"
           prefix-icon="el-icon-search"
-          v-model="searchInput"
-        ></el-input>
-        <el-button icon="el-icon-search" type="primary">搜索</el-button>
+          v-model="searchInput" />
+        <el-button @click="goSearch" icon="el-icon-search" type="primary">搜索</el-button>
       </el-col>
     </el-col>
     <el-col class="link-wrapper" :span="2">
@@ -54,6 +53,11 @@ export default {
     signout() {
       localStorage.removeItem('token')
       this.$router.go('/')
+    },
+
+    goSearch() {
+      this.$router.push(`/search?q=${this.searchInput}`)
+      this.$router.go(0)
     }
   },
   computed: {
