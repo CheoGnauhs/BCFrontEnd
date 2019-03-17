@@ -19,7 +19,7 @@
         <el-form-item label="所在地">
           <br>
           <el-cascader
-            v-model="form.area"
+            v-model="form.districtCodes"
             :options="areaOptions"
             change-on-select
             @change="handleChange"
@@ -27,7 +27,7 @@
         </el-form-item>
         <el-form-item label="成色">
           <br>
-          <el-select v-model="form.condition" placeholder="选择您的物品成色">
+          <el-select v-model="form.fineness" placeholder="选择您的物品成色">
             <el-option
               v-for="(conOption,index) in conOptions"
               :key="index"
@@ -38,7 +38,7 @@
         </el-form-item>
         <el-form-item label="交易方式">
           <br>
-          <el-select v-model="form.sellType" placeholder="选择您的交易方式">
+          <el-select v-model="form.method" placeholder="选择您的交易方式">
             <el-option
               v-for="(dealOption,index) in dealOptions"
               :key="index"
@@ -49,7 +49,7 @@
         </el-form-item>
         <el-form-item label="物品类型">
           <br>
-          <el-select v-model="form.type" allow-create multiple filterable placeholder="请为物品添加类型标签">
+          <el-select v-model="form.field" allow-create filterable placeholder="请为物品添加类型标签">
             <el-option
               v-for="item in options"
               :key="item.value"
@@ -108,10 +108,10 @@ export default {
         name: "",
         description: "",
         price: "",
-        area: "",
-        type: [],
-        sellType: "",
-        condition: ""
+        districtCodes: [],
+        field: '',
+        method: "",
+        fineness: ""
       },
       options: [
         {
@@ -156,7 +156,7 @@ export default {
         },
         {
           label: "不好评价",
-          value: "unknown"
+          value: "0"
         }
       ],
       areaOptions: regionData,
@@ -175,11 +175,11 @@ export default {
     },
 
     handleChange() {
-      console.log(this.areaOptions);
-      console.log(this.form.area);
+      console.log(this.form.districtCodes);
     },
 
     submitForm() {
+      this.form.district = this.form.districtCodes.join('/')
       fetch('/api/items', {
         method: "POST",
         body: JSON.stringify(this.form),
@@ -198,6 +198,7 @@ export default {
           message: '创建成功',
           type: 'success'
         })
+        this.$router.push(`/item-detail/${res.id}`)
       }).catch(err => {
         this.$message({
           message: '创建失败',

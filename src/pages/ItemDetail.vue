@@ -5,7 +5,7 @@
     </el-header>
 
     <el-main class="display-area">
-      <ItemInfo></ItemInfo>
+      <ItemInfo :item="item"></ItemInfo>
       <CommentPart :comments="comments"></CommentPart>
     </el-main>
 
@@ -56,8 +56,41 @@ export default {
           timestamp: "2019-03-07 11:08",
           replies: []
         }
-      ]
+      ],
+      item: {
+        id: '',
+        name: "",
+        description: "",
+        price: "",
+        district: "",
+        field: '',
+        method: "",
+        fineness: ""
+      }
     };
+  },
+  methods: {
+    getData() {
+      let headers = {
+        'Content-Type': 'application/json'
+      }
+      if (localStorage.getItem('token')) {
+        headers['Authorization'] = localStorage.getItem('token')
+      }
+      fetch(`/api/items/${this.$route.params.item_id}`, {
+        headers: new Headers({
+          'Content-Type': 'application/json',
+          'Authorization': localStorage.getItem('token')
+        })
+      }).then(res => {
+        return res.json()
+      }).then(res => {
+        this.item = res
+      })
+    }
+  },
+  mounted() {
+    this.getData()
   }
 };
 </script>

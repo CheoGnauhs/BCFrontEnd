@@ -1,13 +1,16 @@
 <template>
   <div class="item-part">
     <el-carousel height="450px" class="item-imgs">
-      <el-carousel-item v-for="(pic,index) in item.pics" :key="index">
+      <!-- <el-carousel-item v-for="(pic,index) in item.pics" :key="index">
         <img class="item-img" :src="pic.src" alt="item_img">
+      </el-carousel-item> -->
+      <el-carousel-item>
+        <img class="item-img" :src="item.image" alt="item_img">
       </el-carousel-item>
     </el-carousel>
     <div class="item-info">
       <div>
-        <h3 class="item-title">{{item.title}}</h3>
+        <h3 class="item-title">{{item.name}}</h3>
         <div class="item-price">
           价格：
           <span class="price">{{item.price}}</span>二手币
@@ -18,24 +21,25 @@
           <br>
           <span
             class="value"
-          >{{CodeToText[item.areaCode[0]]}}{{CodeToText[item.areaCode[1]]}}{{CodeToText[item.areaCode[2]]}}</span>
+          >{{CodeToText[areaCodes[0]]}}{{CodeToText[areaCodes[1]]}}{{CodeToText[areaCodes[2]]}}</span>
         </div>
         <div class="column">成色：
           <br>
-          <span class="value">{{handleCondition()}}</span>
+          <span class="value">{{fineness}}</span>
         </div>
         <div class="column">交易方式：
           <br>
-          <span class="value">{{handleSellType()}}</span>
+          <span class="value">{{sellType}}</span>
         </div>
-        <div class="column">物品描述：
+        <div style="display:inline-block;height:100px" class="column">物品描述：
           <br>
           <span class="value">{{item.description}}</span>
         </div>
       </div>
       <div class="button-area">
         <el-button type="primary">确认购买</el-button>
-        <el-button>添加收藏</el-button>
+        <el-button v-if="currentToken && !item.collected" @click="addCollection">添加收藏</el-button>
+        <el-button v-if="item.collected" @click="removeCollection">取消收藏</el-button>
       </div>
     </div>
   </div>
@@ -47,47 +51,82 @@ import { CodeToText } from "element-china-area-data";
 
 export default {
   name: "ItemInfo",
+  props: {
+    item: Object
+  },
   data() {
     return {
       CodeToText,
-      item: {
-        title: "百事可乐碳酸汽水饮料整箱600ml*24瓶",
-        price: "69",
-        description:
-          "这一箱可乐是我一年前买给女朋友的礼物。但是她不喜欢喝可乐，觉得喝太多可乐会长胖，所以让我拿出来卖掉。一箱有24瓶，适合想要长胖的朋友们疯狂饮用。餐前一瓶，餐后一瓶，一个月180不是梦。",
-        areaCode: ["120000", "120100", "120101"],
-        condition: "90",
-        sellType: "online",
-        pics: [
-          { src: require("../assets/hat.jpg") },
-          { src: require("../assets/mouse.jpg") },
-          { src: require("../assets/laptop_stand.jpg") }
-        ]
-      }
-    };
+    }
   },
   methods: {
-    handleCondition() {
-      if (this.item.condition == "100") {
-        return "全新";
-      }
-      if (this.item.condition == "90") {
-        return "九成新";
-      }
-      if (this.item.condition == "85") {
-        return "八五新";
-      }
-      if (this.item.condition == "80") {
-        return "八成新";
-      }
-      return "不好评价";
+    removeCollection() {
+      fetch(`/api/items/${this.$route.params.item_id}/collection`, {
+        headers: new Headers({
+          'Content-Type': 'application/json',
+          'Authorization': localStorage.getItem('token')
+        }),
+        method: 'DELETE'
+      }).then(res => {
+        if (res.ok) {
+          this.$message({
+            message: '取消收藏成功',
+            type: 'success'
+          })
+          this.$router.go(0)
+        } else {
+          this.$message({
+            message: '取消收藏失败',
+            type: 'error'
+          })
+        }
+      })
     },
-    handleSellType() {
-      if (this.item.sellType == "online") {
-        return "线上交易";
-      } else {
-        return "线下面交";
+    addCollection() {
+      fetch(`/api/items/${this.$route.params.item_id}/collection`, {
+        headers: new Headers({
+          'Content-Type': 'application/json',
+          'Authorization': localStorage.getItem('token')
+        }),
+        method: 'POST'
+      }).then(res => {
+        if (res.ok) {
+          this.$message({
+            message: '收藏成功',
+            type: 'success'
+          })
+          this.$router.go(0)
+        } else {
+          this.$message({
+            message: '收藏失败',
+            type: 'error'
+          })
+        }
+      })
+    }
+  },
+
+  computed: {
+    sellType() {
+      return this.item.method == 'online' ? '线上交易' : '线下面交'
+    },
+
+    fineness() {
+      switch (this.item.fineness) {
+      case 100: return '全新'
+      case 95:  return '九五成新'
+      case 90:  return '九成新'
+      case 80:  return '八成新'
+      default:  return '不好评价'
       }
+    },
+
+    areaCodes() {
+      return this.item.district.split('/')
+    },
+
+    currentToken() {
+      return localStorage.getItem('token')
     }
   }
 };

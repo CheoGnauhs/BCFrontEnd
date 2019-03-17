@@ -28,7 +28,7 @@ const router = new VueRouter({
     component: NewItem
   },
   {
-    path: "/item-detail",
+    path: "/item-detail/:item_id",
     component: ItemDetail
   },
   {
