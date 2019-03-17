@@ -6,10 +6,6 @@
 
     <el-main class="display-area">
       <ItemInfo></ItemInfo>
-      <div class="button-area">
-        <el-button type="primary">确认购买</el-button>
-        <el-button>添加收藏</el-button>
-      </div>
       <CommentPart :comments="comments"></CommentPart>
     </el-main>
 
@@ -36,7 +32,6 @@ export default {
           name: "吕岩松",
           content: "看起来可以",
           timestamp: "2019-03-07 11:08",
-          thumb: "0",
           replies: [
             {
               replyto: "吕岩松",
@@ -44,7 +39,6 @@ export default {
               name: "吕岩松",
               content: "其实还是不行",
               timestamp: "2019-03-16 12:08",
-              thumb: "0",
             },
             {
               replyto: "吕岩松",
@@ -52,7 +46,6 @@ export default {
               name: "吕岩松",
               content: "其实还是可以",
               timestamp: "2019-03-16 12:09",
-              thumb: "0",
             }
           ]
         },
@@ -61,7 +54,6 @@ export default {
           name: "吕岩松",
           content: "看起来不行",
           timestamp: "2019-03-07 11:08",
-          thumb: "0",
           replies: []
         }
       ]
@@ -73,8 +65,5 @@ export default {
 <style scoped>
 .display-area {
   margin: 0 auto;
-}
-.button-area {
-  margin-top: 10px;
 }
 </style>

@@ -36,7 +36,7 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="出售方式">
+        <el-form-item label="交易方式">
           <br>
           <el-select v-model="form.sellType" placeholder="选择您的交易方式">
             <el-option
@@ -165,13 +165,14 @@ export default {
       this.dialogVisible = true;
     },
     handleChange() {
+      console.log(this.areaOptions);
       console.log(this.form.area);
     }
   },
   mounted() {
-    if (!localStorage.getItem('token')) {
-      this.$router.replace('/login')
-    }
+    // if (!localStorage.getItem('token')) {
+    //   this.$router.replace('/login')
+    // }
   }
 };
 </script>

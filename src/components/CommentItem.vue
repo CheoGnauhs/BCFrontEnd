@@ -15,16 +15,10 @@
       <div class="comment-message">
         <div class="comment-time">{{detail.timestamp}}</div>
         <div class="comment-op">
-          <span class="op-btn">
-            <i class="a-thumb"></i>0
-          </span>
           <!-- 不为空时显示回复条数,回复为空时不显示数字 -->
-          <span v-if="detail.replies!=null" class="op-btn" @click="pannelDisplay = !pannelDisplay">
+          <span class="op-btn" @click="pannelDisplay = !pannelDisplay">
             <i class="a-comment"></i>
-            {{detail.replies.length}}
-          </span>
-          <span v-else class="op-btn" @click="pannelDisplay = !pannelDisplay">
-            <i class="a-comment"></i>
+            {{ detail.replies != null ? detail.replies.length : ''}}
           </span>
         </div>
       </div>
