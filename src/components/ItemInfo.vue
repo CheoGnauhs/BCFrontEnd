@@ -1,8 +1,8 @@
 <template>
   <div class="item-part">
-    <el-carousel class="item-img">
-      <el-carousel-item v-for="item in 4" :key="item">
-        <h3>{{item}}</h3>
+    <el-carousel height="450px" class="item-imgs">
+      <el-carousel-item v-for="(pic,index) in item.pics" :key="index">
+        <img class="item-img" :src="pic.src" alt="item_img">
       </el-carousel-item>
     </el-carousel>
     <div class="item-info">
@@ -29,7 +29,12 @@ export default {
           "新老包装替换 随机发货 以实物为准。" +
           "贮存方法：禁止加热或0摄氏度以下冷冻，避免阳光直晒及高温储存，冷饮口味更佳。" +
           "配料表：水，果葡糖浆，白砂糖，食品添加剂（二氧化碳、焦糖色、磷酸、咖啡因、食用香精）详见配料表。" +
-          "保质期：365天。"
+          "保质期：365天。",
+        pics: [
+          { src: require("../assets/hat.jpg") },
+          { src: require("../assets/mouse.jpg") },
+          { src: require("../assets/laptop_stand.jpg")}
+        ]
       }
     };
   }
@@ -42,14 +47,15 @@ export default {
   justify-items: left;
   width: 1000px;
 }
-h3 {
-  text-align: center;
+.item-imgs {
+  width: 600px;
 }
-.el-carousel__item:nth-child(2n) {
+.item-img{
+  height: 450px;
+}
+.el-carousel__item{
   background-color: #99a9bf;
-}
-.el-carousel__item:nth-child(2n + 1) {
-  background-color: #d3dce6;
+  text-align: center;
 }
 .item-info {
   padding-left: 10px;
@@ -75,9 +81,6 @@ h3 {
   color: #909399;
   font-size: 14px;
   height: 160px;
-}
-.item-img {
-  width: 600px;
 }
 h3 {
   text-align: center;
