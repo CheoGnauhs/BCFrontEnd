@@ -61,11 +61,16 @@
         <el-form-item label="图片上传">
           <br>
           <el-upload
-            action="https://jsonplaceholder.typicode.com/posts/"
+            :action="`/api/items/upload`"
             list-type="picture-card"
+            ref="uploader"
             :on-preview="handlePictureCardPreview"
             :on-remove="handleRemove"
-          >
+            :multiple="false"
+            :headers="{'Authorization':currentToken}"
+            :on-progress="handleUploadStart"
+            :on-success="handleUploadSuccess"
+            :on-error="handleUploadError">
             <i class="el-icon-plus"></i>
           </el-upload>
           <el-dialog :visible.sync="dialogVisible">
@@ -73,7 +78,7 @@
           </el-dialog>
         </el-form-item>
         <div>
-          <el-button type="primary">提交</el-button>
+          <el-button type="primary" @click="submitForm" :disable="!uploadInProgress">提交</el-button>
           <el-button>重置</el-button>
         </div>
       </el-form>
@@ -98,6 +103,8 @@ export default {
       dialogImageUrl: "",
       dialogVisible: false,
       form: {
+        // FIXME: Using id to POST directly is dangerous.
+        id: '',
         name: "",
         description: "",
         price: "",
@@ -152,7 +159,8 @@ export default {
           value: "unknown"
         }
       ],
-      areaOptions: regionData
+      areaOptions: regionData,
+      uploadInProgress: false
     };
   },
   methods: {
@@ -160,19 +168,67 @@ export default {
       // eslint-disable-next-line
       console.log(file, fileList);
     },
+
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url;
       this.dialogVisible = true;
     },
+
     handleChange() {
       console.log(this.areaOptions);
       console.log(this.form.area);
+    },
+
+    submitForm() {
+      fetch('/api/items', {
+        method: "POST",
+        body: JSON.stringify(this.form),
+        headers: new Headers({
+          "Content-Type": "application/json",
+          "Authorization": localStorage.getItem('token')
+        })
+      }).then(res => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error()
+        }
+      }).then(res => {
+        this.$message({
+          message: '创建成功',
+          type: 'success'
+        })
+      }).catch(err => {
+        this.$message({
+          message: '创建失败',
+          type: 'error'
+        })
+        this.loadState = false
+      })
+    },
+
+    handleUploadStart() {
+      this.uploadInProgress = true
+    },
+
+    handleUploadSuccess(response) {
+      this.form.id = response.id
+      this.uploadInProgress = false
+    },
+
+    handleUploadError() {
+      this.uploadInProgress = false
     }
   },
   mounted() {
-    // if (!localStorage.getItem('token')) {
-    //   this.$router.replace('/login')
-    // }
+    if (!localStorage.getItem('token')) {
+      this.$router.replace('/login?redirect=/new-item')
+    }
+  },
+  computed: {
+    currentToken() {
+      return localStorage.getItem('token')
+    }
   }
 };
 </script>

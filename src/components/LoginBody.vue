@@ -60,6 +60,8 @@ export default {
             type: 'success'
           })
           this.loadState = false
+          console.log(this.$route.query)
+          this.$router.push(this.$route.query.redirect || '/')
         })
         .catch(err => {
           this.$message({
