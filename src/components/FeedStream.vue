@@ -2,16 +2,16 @@
   <div>
     <el-card v-for="(item,index) in commodityInformations" :key="index" shadow="never" class="box-card">
       <div slot="header" class="card-head">
-        <span class="commodity-name">{{item.commodityName}}</span>
+        <span class="commodity-name">{{item.name}}</span>
         <i class="el-icon-delete"></i>
       </div>
       <div class="card-container">
-        <img class="commodity-pic" alt="commodity-pic" :src="item.commodityPic">
+        <img class="commodity-pic" alt="commodity-pic" :src="item.image">
 
         <div class="commodity-info">
-          <span class="commodity-details">订单编号：{{item.commodityId}}</span>
-          <span class="commodity-details">价格：{{item.commodityPrice}}</span>
-          <span class="commodity-details">完成情况：{{item.commodityState}}</span>
+          <span class="commodity-details">订单编号：{{item.id}}</span>
+          <span class="commodity-details">价格：{{item.price}}</span>
+          <span class="commodity-details">完成情况：{{itemStatusText(item.status)}}</span>
         </div>
         <div class="comment">
           <el-button type="primary">查看评价</el-button>
@@ -27,30 +27,36 @@ export default {
   name: "FeedSteam",
   data() {
     return {
-      commodityInformations: [
-        {
-          commodityId: 123456789012345678,
-          commodityName: "货物1",
-          commodityPic: require("../assets/commodityPic.jpg"),
-          commodityPrice: 100,
-          commodityState: "未完成"
-        },
-        {
-          commodityId: 123456789012345679,
-          commodityName: "货物2",
-          commodityPic: require("../assets/commodityPic.jpg"),
-          commodityPrice: 200,
-          commodityState: "已完成"
-        },
-        {
-          commodityId: 123456789012345680,
-          commodityName: "货物3",
-          commodityPic: require("../assets/commodityPic.jpg"),
-          commodityPrice: 200,
-          commodityState: "已完成"
-        }
-      ]
+      commodityInformations: []
     };
+  },
+
+  methods: {
+    getData() {
+      fetch('/api/profile/collections', {
+        headers: new Headers({
+          'Content-Type': 'application/json',
+          'Authorization': localStorage.getItem('token')
+        })
+      }).then(res => {
+        return res.json()
+      }).then(res => {
+        this.commodityInformations = res
+      })
+    },
+
+    itemStatusText(i) {
+      switch (i) {
+      case 'active': return '售卖中'
+      case 'sold': return '已卖出'
+      case 'closed': return '已关闭'
+      default: return '未知'
+      }
+    }
+  },
+
+  mounted() {
+    this.getData()
   }
 };
 </script>
@@ -83,5 +89,9 @@ export default {
   font-size: 14px;
   display: flex;
   flex-wrap: wrap;
+}
+.commodity-pic {
+  width: 220px;
+  height: 160px;
 }
 </style>

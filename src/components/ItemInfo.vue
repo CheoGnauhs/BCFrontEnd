@@ -73,6 +73,7 @@ export default {
             message: '取消收藏成功',
             type: 'success'
           })
+          // TODO: Make parent component change data
           this.$router.go(0)
         } else {
           this.$message({

@@ -52,18 +52,7 @@ export default {
     info: Object
   },
   data() {
-    return {
-      // userInfo: {
-      //   username: "岩松松松松松",
-      //   telephone: "13112345678",
-      //   email: "1234@tongji.edu.cn",
-      //   blockChainCredit: 0,
-      //   district: "上海市杨浦区",
-      //   address: "四平路1239号同济大学",
-      //   avatarSrc: require("../assets/avatar.jpg"),
-      //   creditRate: "4.8"
-      // }
-    };
+    return {}
   },
   computed: {
   }
