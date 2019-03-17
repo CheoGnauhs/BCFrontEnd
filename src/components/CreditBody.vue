@@ -66,9 +66,6 @@ export default {
     };
   },
   computed: {
-    userInfo() {
-      this.$parent.$data.userInfo
-    }
   }
 };
 </script>

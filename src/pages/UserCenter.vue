@@ -76,7 +76,7 @@ export default {
   },
   mounted() {
     if (!localStorage.getItem('token')) {
-      this.$router.replace('/login')
+      this.$router.replace('/login?redirect=/user-center')
       return
     }
     this.getData()

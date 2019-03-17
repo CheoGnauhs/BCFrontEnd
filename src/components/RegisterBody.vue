@@ -159,6 +159,7 @@ export default {
               message: '注册成功',
               type: 'success'
             })
+            this.$router.push('/')
             this.loadState = false
           }).catch(err => {
             this.$message({

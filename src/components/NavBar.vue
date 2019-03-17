@@ -30,10 +30,10 @@
     </el-col>
     <el-col class="link-wrapper" :span="2">
       <span class="link-area" v-if="hasToken">
-        <a @click="signout">退出登录</a>
+        <a @click="signout" style="cursor:pointer">退出登录</a>
       </span>
       <span class="link-area" v-else>
-        <router-link to="/login">登陆</router-link>
+        <router-link :to="'/login?redirect=' + this.$route.path">登陆</router-link>
         /
         <router-link to="/register">注册</router-link>
       </span>
