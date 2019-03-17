@@ -1,24 +1,24 @@
 <template>
   <el-row class="card-holder">
-      <el-col v-for="(item, index) in items" :key="index" class="card-wrapper">
-        <el-card shadow="hover" :body-style="{padding:'0px'}">
-          <router-link to="/">
-            <img v-bind:src="item.pic" alt="avatar" class="image">
-          </router-link>
-          <div class="content">
-            <router-link to="/" class="title">{{item.title}}</router-link>
-            <div class="price-wrapper">
-              价格:
-              <span class="price">
-                <b class="oringe">{{item.price}}</b>二手币
-              </span>
-            </div>
-            <div class="seller-wrapper">提供者:
-              <router-link to="/" class="seller">{{item.seller}}</router-link>
-            </div>
+    <el-col v-for="(item, index) in items" :key="index" class="card-wrapper">
+      <el-card shadow="hover" :body-style="{padding:'0px'}">
+        <router-link to="/">
+          <div class="img-wrapper" :style="{'background-image':'url('+item.pic+')'}"></div>
+        </router-link>
+        <div class="content">
+          <router-link to="/" class="title">{{item.title}}</router-link>
+          <div class="price-wrapper">
+            价格:
+            <span class="price">
+              <b class="oringe">{{item.price}}</b>二手币
+            </span>
           </div>
-        </el-card>
-      </el-col>
+          <div class="seller-wrapper">提供者:
+            <router-link to="/" class="seller">{{item.seller}}</router-link>
+          </div>
+        </div>
+      </el-card>
+    </el-col>
   </el-row>
 </template>
 
@@ -29,54 +29,51 @@ export default {
     return {
       items: [
         {
-          title: "黛圣婕泰国乳胶枕头一对天然橡胶枕芯记忆家用单成人护颈椎枕头男",
-          price: "20",
+          title: "iPhone6 64G 深空灰 2014年购入 换新机后闲置",
+          price: "1200",
           seller: "谭爽",
-          pic:
-            "https://g-search1.alicdn.com/img/bao/uploaded/i4/imgextra/i4/33194644/TB2uog0gDXYBeNkHFrdXXciuVXa_!!0-saturn_solar.jpg_230x230.jpg_.webp"
+          pic: require("../assets/ip6.jpg")
         },
         {
-          title: "拉芙菲尔 五星级酒店枕头成人护颈枕正品全棉家用枕芯单人一对拍2",
+          title: "自用化妆镜 美妆必备 开心的一天 雪梨表面图案",
           price: "20",
           seller: "谭爽",
-          pic:
-            "https://g-search1.alicdn.com/img/bao/uploaded/i4/imgextra/i4/33194644/TB2uog0gDXYBeNkHFrdXXciuVXa_!!0-saturn_solar.jpg_230x230.jpg_.webp"
+          pic: require("../assets/mirror.jpg")
         },
         {
-          title: "拉芙菲尔 五星级酒店枕头成人护颈枕正品全棉家用枕芯单人一对拍2",
-          price: "20",
+          title: "不知名品牌 韩版男式帅气渔夫帽 黑色",
+          price: "50",
           seller: "谭爽",
-          pic:
-            "https://g-search1.alicdn.com/img/bao/uploaded/i4/imgextra/i4/33194644/TB2uog0gDXYBeNkHFrdXXciuVXa_!!0-saturn_solar.jpg_230x230.jpg_.webp"
+          pic: require("../assets/hat.jpg")
         },
         {
-          title: "拉芙菲尔 五星级酒店枕头成人护颈枕正品全棉家用枕芯单人一对拍2",
-          price: "20",
-          seller: "谭爽",
-          pic:
-            "https://g-search1.alicdn.com/img/bao/uploaded/i4/imgextra/i4/33194644/TB2uog0gDXYBeNkHFrdXXciuVXa_!!0-saturn_solar.jpg_230x230.jpg_.webp"
+          title: "罗技M580蓝牙鼠标 支持Win/Mac系统",
+          price: "200",
+          seller: "邱超凡",
+          pic: require("../assets/mouse.jpg")
         },
         {
-          title: "拉芙菲尔 五星级酒店枕头成人护颈枕正品全棉家用枕芯单人一对拍2",
-          price: "20",
-          seller: "谭爽",
-          pic:
-            "https://g-search1.alicdn.com/img/bao/uploaded/i4/imgextra/i4/33194644/TB2uog0gDXYBeNkHFrdXXciuVXa_!!0-saturn_solar.jpg_230x230.jpg_.webp"
+          title: "不知名品牌MacBook电脑支架 高价购于亚马逊",
+          price: "500",
+          seller: "邱超凡",
+          pic: require("../assets/laptop_stand.jpg")
         }
       ]
     };
   },
   methods: {
     getData() {
-      fetch('/api/items').then(res => {
-        return res.json()
-      }).then(res => {
-        console.log(res)
-      })
+      fetch("/api/items")
+        .then(res => {
+          return res.json();
+        })
+        .then(res => {
+          console.log(res);
+        });
     }
   },
   mounted() {
-    this.getData()
+    this.getData();
   }
 };
 </script>
@@ -91,8 +88,16 @@ export default {
   width: 230px;
   margin-top: 30px;
 }
+.img-wrapper {
+  width: 230px;
+  height: 250px;
+  background: no-repeat center;
+  background-size: 230px;
+  border-bottom: 1px solid #f2f6fc;
+}
 .image {
   width: 230px;
+  height: auto;
 }
 .content {
   padding: 8px;
@@ -102,6 +107,7 @@ export default {
   font-size: 16px;
   display: block;
   margin-bottom: 5px;
+  height: 44px;
 }
 .content > div {
   margin-bottom: 2px;
