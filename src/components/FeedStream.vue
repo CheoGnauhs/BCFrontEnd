@@ -6,8 +6,9 @@
         <i class="el-icon-delete"></i>
       </div>
       <div class="card-container">
-        <img class="commodity-pic" alt="commodity-pic" :src="item.image">
-
+        <div class="pic-wrapper">
+        <div class="commodity-pic" alt="commodity-pic" :style="{'background-image':'url('+item.image+')'}"></div>
+        </div>
         <div class="commodity-info">
           <span class="commodity-details">订单编号：{{item.id}}</span>
           <span class="commodity-details">价格：{{item.price}}</span>
@@ -83,7 +84,7 @@ export default {
 }
 .commodity-details {
   color: #909399;
-  margin-right: 40px;
+  margin: 0 20px;
 }
 .commodity-info {
   font-size: 14px;
@@ -91,7 +92,14 @@ export default {
   flex-wrap: wrap;
 }
 .commodity-pic {
-  width: 220px;
-  height: 160px;
+  width: 160px;
+  height: 120px;
+  background: no-repeat center;
+  background-size: auto 160px;
+}
+.pic-wrapper{
+  width: 160px;
+  height: 120px;
+  background: #d3dce6;
 }
 </style>

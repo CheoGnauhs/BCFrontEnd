@@ -8,7 +8,8 @@
         </span>
       </div>
       <div class="card-container">
-        <span class="user-info">姓名：{{ info.handle }}</span>
+        <span class="user-info">用户名：{{ info.handle }}</span>
+        <span class="user-info">姓名：{{ info.userName }}</span>
         <span class="user-info">手机：{{ info.telephone }}</span>
         <span class="user-info">邮箱：{{ info.email }}</span>
       </div>

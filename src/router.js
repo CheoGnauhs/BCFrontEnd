@@ -8,6 +8,7 @@ import UserCenter from "./pages/UserCenter";
 import Order from "./pages/Order";
 import Check from "./pages/Check";
 import OrderDetail from "./pages/OrderDetail";
+import DetailInfo from "./pages/DetailInfo";
 
 const router = new VueRouter({
   mode: "history",
@@ -50,6 +51,10 @@ const router = new VueRouter({
   {
     path: "/order-detail",
     component: OrderDetail
+  },
+  {
+    path: "/detail-info",
+    component: DetailInfo
   }]
 });
 

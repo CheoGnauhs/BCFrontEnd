@@ -5,6 +5,7 @@
     </el-header>
     <el-main>
       <el-form class="item-wrapper">
+        <h3 class="header">在下方填入您物品的详细信息</h3>
         <el-form-item label="物品名称">
           <el-input v-model="form.name" placeholder="品类、品牌、型号等关键信息可在此输入"></el-input>
         </el-form-item>
@@ -44,6 +45,7 @@
               :key="index"
               :label="dealOption.label"
               :value="dealOption.value"
+              :disabled="dealOption.disabled"
             ></el-option>
           </el-select>
         </el-form-item>
@@ -70,7 +72,8 @@
             :headers="{'Authorization':currentToken}"
             :on-progress="handleUploadStart"
             :on-success="handleUploadSuccess"
-            :on-error="handleUploadError">
+            :on-error="handleUploadError"
+          >
             <i class="el-icon-plus"></i>
           </el-upload>
           <el-dialog :visible.sync="dialogVisible">
@@ -104,12 +107,12 @@ export default {
       dialogVisible: false,
       form: {
         // FIXME: Using id to POST directly is dangerous.
-        id: '',
+        id: "",
         name: "",
         description: "",
         price: "",
         districtCodes: [],
-        field: '',
+        field: "",
         method: "",
         fineness: ""
       },
@@ -125,12 +128,21 @@ export default {
         {
           label: "生活用品",
           value: "supplies"
+        },
+        {
+          label: "手机",
+          value: "phone"
+        },
+        {
+          label: "衣物",
+          value: "garment"
         }
       ],
       dealOptions: [
         {
           label: "线上交易",
-          value: "online"
+          value: "online",
+          disabled: true
         },
         {
           label: "线下面交",
@@ -148,7 +160,7 @@ export default {
         },
         {
           label: "9成新",
-          value: "80"
+          value: "90"
         },
         {
           label: "8成新",
@@ -179,62 +191,70 @@ export default {
     },
 
     submitForm() {
-      this.form.district = this.form.districtCodes.join('/')
-      fetch('/api/items', {
+      this.form.district = this.form.districtCodes.join("/");
+      fetch("/api/items", {
         method: "POST",
         body: JSON.stringify(this.form),
         headers: new Headers({
           "Content-Type": "application/json",
-          "Authorization": localStorage.getItem('token')
+          Authorization: localStorage.getItem("token")
         })
-      }).then(res => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          throw new Error()
-        }
-      }).then(res => {
-        this.$message({
-          message: '创建成功',
-          type: 'success'
-        })
-        this.$router.push(`/item-detail/${res.id}`)
-      }).catch(err => {
-        this.$message({
-          message: '创建失败',
-          type: 'error'
-        })
-        this.loadState = false
       })
+        .then(res => {
+          if (res.ok) {
+            return res.json();
+          } else {
+            throw new Error();
+          }
+        })
+        .then(res => {
+          this.$message({
+            message: "创建成功",
+            type: "success"
+          });
+          this.$router.push(`/item-detail/${res.id}`);
+        })
+        .catch(err => {
+          this.$message({
+            message: "创建失败",
+            type: "error"
+          });
+          this.loadState = false;
+        });
     },
 
     handleUploadStart() {
-      this.uploadInProgress = true
+      this.uploadInProgress = true;
     },
 
     handleUploadSuccess(response) {
-      this.form.id = response.id
-      this.uploadInProgress = false
+      this.form.id = response.id;
+      this.uploadInProgress = false;
     },
 
     handleUploadError() {
-      this.uploadInProgress = false
+      this.uploadInProgress = false;
     }
   },
   mounted() {
-    if (!localStorage.getItem('token')) {
-      this.$router.replace('/login?redirect=/new-item')
+    if (!localStorage.getItem("token")) {
+      this.$router.replace("/login?redirect=/new-item");
     }
   },
   computed: {
     currentToken() {
-      return localStorage.getItem('token')
+      return localStorage.getItem("token");
     }
   }
 };
 </script>
 
 <style scope>
+.header{
+  font-size: 20px;
+  color: #303233;
+  margin: 10px 0;
+}
 .item-wrapper {
   width: 500px;
   margin: 0 auto;

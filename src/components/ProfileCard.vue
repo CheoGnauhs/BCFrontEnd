@@ -4,7 +4,7 @@
     <div class="user-name">{{info.userName}}</div>
     <div class="user-info">
       <img class="tag" src="../assets/location.png" alt="location">
-      {{info.location}}
+      {{CodeToText[info.district[0]]}}{{CodeToText[info.district[1]]}}{{CodeToText[info.district[2]]}}
     </div>
     <div class="user-info">
       <img class="tag" src="../assets/email.png" alt="email">
@@ -14,8 +14,12 @@
 </template>
 
 <script>
+import { CodeToText } from "element-china-area-data";
 export default {
   name: "ProfileCard",
+  data() {
+    return CodeToText;
+  },
   props: {
     info: Object
   }
@@ -32,7 +36,7 @@ export default {
   height: 175px;
   border-radius: 5px;
 }
-.tag{
+.tag {
   margin-right: 3px;
 }
 .user-info {
