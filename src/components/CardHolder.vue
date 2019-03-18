@@ -27,6 +27,31 @@ export default {
   name: "CardHolder",
   props: {
     items: Array
+  },
+  data() {
+    return {
+      // items: []
+    }
+  },
+  methods: {
+    getData() {
+      let url = '/api/items'
+      if (this.$route.path == '/search') {
+        url = '/api/items/search?q=' + this.$route.query['q']
+      }
+      fetch(url, {
+        headers: new Headers({
+          'Authorization': localStorage.getItem('token')
+        })
+      }).then(res => {
+        return res.json();
+      }).then(res => {
+        this.items = res
+      })
+    }
+  },
+  mounted() {
+    // this.getData()
   }
 };
 </script>

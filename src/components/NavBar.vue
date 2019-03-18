@@ -57,7 +57,6 @@ export default {
 
     goSearch() {
       this.$router.push(`/search?q=${this.searchInput}`)
-      this.$router.go(0)
     }
   },
   computed: {

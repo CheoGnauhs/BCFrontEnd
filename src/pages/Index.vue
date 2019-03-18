@@ -28,7 +28,7 @@ export default {
     NavBar,
     FooterBar,
     ItemCarosel,
-    CardHolder
+    CardHolder,
   },
   data() {
     return {
@@ -57,9 +57,13 @@ export default {
       return this.$route.path == '/'
     }
   },
-  // FIXME: 从搜索界面回退，数据不会更新
   mounted() {
     this.getData()
+  },
+  watch: {
+    '$route' (to, from) {
+      this.getData()
+    }
   }
 };
 </script>
