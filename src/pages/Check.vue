@@ -4,8 +4,8 @@
       <NavBar actpage="1"></NavBar>
     </el-header>
     <el-main class="main-body">
-      <ItemInfo></ItemInfo>
-      <AppCheckout></AppCheckout>
+      <ItemInfo :item="item"></ItemInfo>
+      <AppCheckout :item_id="item.id"></AppCheckout>
     </el-main>
     <el-footer>
       <FooterBar></FooterBar>
@@ -21,7 +21,38 @@ import AppCheckout from "../components/AppCheckout.vue";
 
 export default {
   name: "Register",
-  components: { NavBar, FooterBar, ItemInfo, AppCheckout }
+  components: { NavBar, FooterBar, ItemInfo, AppCheckout },
+  data() {
+    return {
+      item: {}
+    }
+  },
+  methods: {
+    getData() {
+      if (!localStorage.getItem('token')) {
+        this.$message({
+          message: '请先登录',
+          type: 'warning'
+        })
+        this.$router.replace('/login?redirect=/check/' + this.$route.params.item_id)
+        return
+      }
+
+      fetch(`/api/items/${this.$route.params.item_id}`, {
+        headers: new Headers({
+          'Content-Type': 'application/json',
+          'Authorization': localStorage.getItem('token')
+        })
+      }).then(res => {
+        return res.json()
+      }).then(res => {
+        this.item = res
+      })
+    }
+  },
+  mounted() {
+    this.getData()
+  }
 };
 </script>
 

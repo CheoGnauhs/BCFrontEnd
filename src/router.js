@@ -45,7 +45,7 @@ const router = new VueRouter({
     component: Order
   },
   {
-    path: "/check",
+    path: "/check/:item_id",
     component: Check
   },
   {

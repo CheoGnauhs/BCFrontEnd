@@ -72,7 +72,6 @@ export default {
   computed: {
     districtCodes() {
       // eslint-disable-next-line
-      console.log(this.info.district);
       return this.info.district.split("/");
     }
   }

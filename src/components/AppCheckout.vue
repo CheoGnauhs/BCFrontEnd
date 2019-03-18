@@ -13,7 +13,7 @@
           <el-input v-model="phone"></el-input>
         </el-form-item>
       </el-form>
-      <el-button type="primary">确认购买</el-button>
+      <el-button type="primary" @click="goBuy">确认购买</el-button>
     </div>
   </div>
 </template>
@@ -22,6 +22,7 @@
 export default {
   components: {},
   props: {
+    item_id: Number,
     total: {
       type: [Number, String],
       default: "50.00"
@@ -37,12 +38,69 @@ export default {
       complete: false,
       status: "",
       response: "",
-      address: "上海市杨浦区四平路1239号同济大学",
-      receiver: "谭爽",
-      phone: "17621476826"
+      address: "",
+      receiver: '',
+      phone: ""
     };
   },
-  methods: {}
+  methods: {
+    goBuy() {
+      if (this.address.length == 0 || this.phone.length != 11) {
+        this.$message({
+          message: '请填写正确信息',
+          type: 'error'
+        })
+        return
+      }
+
+      fetch(`/api/orders`, {
+        method: 'POST',
+        headers: new Headers({
+          'Content-Type': 'application/json',
+          'Authorization': localStorage.getItem('token')
+        }),
+        body: JSON.stringify({
+          name: this.receiver,
+          telephone: this.phone,
+          address: this.address,
+          item_id: this.item_id
+        })
+      }).then(res => res.json()).then(res => {
+        if (res.error == 'BALANCE_NOT_ENOUGH') {
+          this.$message({
+            message: '余额不足',
+            type: 'error'
+          })
+        } else if (res.error == 'NOT_AVAILABLE') {
+          this.$message({
+            message: '商品已不可购买',
+            type: 'error'
+          })
+        } else {
+          this.$message({
+            message: '交易成功',
+            type: 'success'
+          })
+          this.$router.push('/user-center')
+        }
+      })
+    },
+    getData() {
+      fetch('/api/profile', {
+        headers: new Headers({
+          'Content-Type': 'application/json',
+          'Authorization': localStorage.getItem('token')
+        })
+      }).then(res => res.json()).then(res => {
+        this.receiver = res.name || res.handle
+        this.phone = res.telephone
+        this.address = res.address
+      })
+    }
+  },
+  mounted() {
+    this.getData()
+  }
 };
 </script>
 

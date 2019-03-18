@@ -10,6 +10,9 @@
       <div class="center-right">
         <!-- <FeedStream></FeedStream> -->
         <el-tabs class="user-panel" type="border-card" @tab-click="handleTabClick">
+          <el-tab-pane label="我的信息">
+            <CreditBody :info="userInfo"></CreditBody>
+          </el-tab-pane>
           <el-tab-pane label="我的订单">
             <FeedStream :commodityInformations="orders"></FeedStream>
           </el-tab-pane>
@@ -18,9 +21,6 @@
           </el-tab-pane>
           <el-tab-pane label="我的收藏">
             <FeedStream :commodityInformations="collections"></FeedStream>
-          </el-tab-pane>
-          <el-tab-pane label="我的信息">
-            <CreditBody :info="userInfo"></CreditBody>
           </el-tab-pane>
         </el-tabs>
       </div>
@@ -109,12 +109,23 @@ export default {
         });
     },
 
-    getOrders() {},
+    getOrders() {
+      fetch("/api/profile/orders", {
+        headers: new Headers({
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token")
+        })
+      }).then(res => {
+        return res.json();
+      }).then(res => {
+        this.orders = res;
+      })
+    },
 
     handleTabClick(tab) {
-      if (tab.index == 0) this.getOrders();
-      else if (tab.index == 1) this.getItems();
-      else if (tab.index == 2) this.getCollection();
+      if (tab.index == 1) this.getOrders();
+      else if (tab.index == 2) this.getItems();
+      else if (tab.index == 3) this.getCollection();
     }
   },
   mounted() {

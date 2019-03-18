@@ -37,9 +37,9 @@
         </div>
       </div>
       <div class="button-area">
-        <el-button type="primary">确认购买</el-button>
-        <el-button v-if="currentToken && !item.collected" @click="addCollection">添加收藏</el-button>
-        <el-button v-if="item.collected" @click="removeCollection">取消收藏</el-button>
+        <el-button type="primary" @click="checkOut" v-if="isDetail">确认购买</el-button>
+        <el-button v-if="isDetail && currentToken && !item.collected" @click="addCollection">添加收藏</el-button>
+        <el-button v-if="isDetail && item.collected" @click="removeCollection">取消收藏</el-button>
       </div>
     </div>
   </div>
@@ -60,6 +60,9 @@ export default {
     }
   },
   methods: {
+    checkOut() {
+      this.$router.push(`/check/${this.$route.params.item_id}`)
+    },
     removeCollection() {
       fetch(`/api/items/${this.$route.params.item_id}/collection`, {
         headers: new Headers({
@@ -128,6 +131,10 @@ export default {
 
     currentToken() {
       return localStorage.getItem('token')
+    },
+
+    isDetail() {
+      return this.$route.path.startsWith('/item-detail')
     }
   }
 };
