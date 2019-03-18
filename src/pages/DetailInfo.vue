@@ -13,10 +13,10 @@
         </div>
         <div class="card-container">
           <el-form-item label="用户名">
-            <el-input v-model="userInfo.handle" disabled="true"></el-input>
+            <el-input v-model="userInfo.handle" :disabled="true"></el-input>
           </el-form-item>
           <el-form-item label="姓名">
-            <el-input v-model="userInfo.userName"></el-input>
+            <el-input v-model="userInfo.userName" :disabled="disabled"></el-input>
           </el-form-item>
           <el-form-item label="手机">
             <el-input v-model="userInfo.telephone"></el-input>
@@ -39,6 +39,7 @@
             <br>
             <el-input v-model="userInfo.address"></el-input>
           </el-form-item>
+          <el-button type="primary" @click="updateData">确认更改</el-button>
         </div>
       </el-form>
     </el-main>
@@ -60,7 +61,8 @@ export default {
   data() {
     return {
       options: regionData,
-      userInfo: {}
+      userInfo: {},
+      disabled: false
     };
   },
   methods: {
@@ -85,6 +87,28 @@ export default {
         .then(res => {
           this.userInfo = res;
         });
+    },
+    updateData() {
+      fetch("/api/profile", {
+        method: "PATCH",
+        Headers: new Headers({
+          "Content-Type": "application-json",
+          Authorization: localStorage.getItem("token")
+        }),
+        body: JSON.stringify(this.userInfo)
+      }).then(res => {
+        if (res.ok) {
+          this.$message({
+            message: "信息更改成功",
+            type: "success"
+          });
+        } else {
+          this.$message({
+            message: "信息更改失败",
+            type: "error"
+          });
+        }
+      });
     }
   },
   mounted() {
@@ -92,6 +116,9 @@ export default {
       this.$router.replace("/login?redirect=/detail-info");
     }
     this.getData();
+    if (this.userInfo.userName != "" || this.userInfo.userName != null) {
+      this.disable = true;
+    }
   },
   computed: {
     currentToken() {

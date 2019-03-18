@@ -5,9 +5,9 @@
     </el-header>
 
     <el-main>
-      <ItemCarosel v-if="isIndexPage" />
+      <ItemCarosel v-if="isIndexPage"/>
       <div>
-        <CardHolder :items="items" />
+        <CardHolder :items="items"/>
       </div>
     </el-main>
 
@@ -18,6 +18,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import NavBar from "../components/NavBar.vue";
 import FooterBar from "../components/FooterBar.vue";
 import ItemCarosel from "../components/ItemCarosel.vue";
@@ -28,41 +29,43 @@ export default {
     NavBar,
     FooterBar,
     ItemCarosel,
-    CardHolder,
+    CardHolder
   },
   data() {
     return {
       items: []
-    }
+    };
   },
   methods: {
     getData() {
-      let url = '/api/items'
-      if (this.$route.path == '/search') {
-        url = '/api/items/search?q=' + this.$route.query['q']
+      let url = "/api/items";
+      if (this.$route.path == "/search") {
+        url = "/api/items/search?q=" + this.$route.query["q"];
       }
       fetch(url, {
         headers: new Headers({
-          'Authorization': localStorage.getItem('token')
+          Authorization: localStorage.getItem("token")
         })
-      }).then(res => {
-        return res.json();
-      }).then(res => {
-        this.items = res
-      });
+      })
+        .then(res => {
+          return res.json();
+        })
+        .then(res => {
+          this.items = res;
+        });
     }
   },
   computed: {
     isIndexPage() {
-      return this.$route.path == '/'
+      return this.$route.path == "/";
     }
   },
   mounted() {
-    this.getData()
+    this.getData();
   },
   watch: {
-    '$route' (to, from) {
-      this.getData()
+    $route(to, from) {
+      this.getData();
     }
   }
 };
