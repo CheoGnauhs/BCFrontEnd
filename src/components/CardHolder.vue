@@ -14,7 +14,7 @@
             </span>
           </div>
           <div class="seller-wrapper">提供者:
-            <router-link to="/" class="seller">{{item.seller.name}}</router-link>
+            <router-link to="/" class="seller">{{item.seller.handle}}</router-link>
           </div>
         </div>
       </el-card>

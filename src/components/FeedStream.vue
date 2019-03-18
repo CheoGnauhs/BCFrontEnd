@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="commodityInformations.length > 0">
     <el-card v-for="(item,index) in commodityInformations" :key="index" shadow="never" class="box-card">
       <div slot="header" class="card-head">
         <span class="commodity-name">{{item.name}}</span>
@@ -21,31 +21,21 @@
       </div>
     </el-card>
   </div>
+  <div v-else style="width:100%;text-align:center">暂无内容</div>
 </template>
 
 <script>
 export default {
   name: "FeedSteam",
+  props: {
+    commodityInformations: Array
+  },
   data() {
     return {
-      commodityInformations: []
     };
   },
 
   methods: {
-    getData() {
-      fetch('/api/profile/collections', {
-        headers: new Headers({
-          'Content-Type': 'application/json',
-          'Authorization': localStorage.getItem('token')
-        })
-      }).then(res => {
-        return res.json()
-      }).then(res => {
-        this.commodityInformations = res
-      })
-    },
-
     itemStatusText(i) {
       switch (i) {
       case 'active': return '售卖中'
@@ -57,7 +47,6 @@ export default {
   },
 
   mounted() {
-    this.getData()
   }
 };
 </script>
