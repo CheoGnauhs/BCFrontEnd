@@ -82,7 +82,7 @@
         </el-form-item>
         <div>
           <el-button type="primary" @click="submitForm" :disable="!uploadInProgress">提交</el-button>
-          <el-button>重置</el-button>
+          <el-button @click="clearInfo">重置</el-button>
         </div>
       </el-form>
     </el-main>
@@ -176,6 +176,10 @@ export default {
     };
   },
   methods: {
+    clearInfo(){
+      this.form = {};
+    },
+
     handleRemove(file, fileList) {
       // eslint-disable-next-line
       console.log(file, fileList);

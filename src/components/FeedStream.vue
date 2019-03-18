@@ -1,13 +1,26 @@
 <template>
   <div v-if="commodityInformations.length > 0">
-    <el-card v-for="(item,index) in commodityInformations" :key="index" shadow="never" class="box-card">
+    <el-card
+      v-for="(item,index) in commodityInformations"
+      :key="index"
+      shadow="never"
+      class="box-card"
+    >
       <div slot="header" class="card-head">
-        <span class="commodity-name">{{item.name}}</span>
-        <i class="el-icon-delete"></i>
+        <span class="commodity-name">
+          <router-link :to="'/item-detail/'+item.id">{{item.name}}</router-link>
+        </span>
+        <a style="cursor: pointer" onclick="deleteItem">
+          <i class="el-icon-delete"></i>
+        </a>
       </div>
       <div class="card-container">
         <div class="pic-wrapper">
-        <div class="commodity-pic" alt="commodity-pic" :style="{'background-image':'url('+item.image+')'}"></div>
+          <div
+            class="commodity-pic"
+            alt="commodity-pic"
+            :style="{'background-image':'url('+item.image+')'}"
+          ></div>
         </div>
         <div class="commodity-info">
           <span class="commodity-details">订单编号：{{item.id}}</span>
@@ -31,30 +44,35 @@ export default {
     commodityInformations: Array
   },
   data() {
-    return {
-    };
+    return {};
   },
 
   methods: {
     itemStatusText(i) {
       switch (i) {
-      case 'active': return '售卖中'
-      case 'sold': return '已卖出'
-      case 'closed': return '已关闭'
-      default: return '未知'
+        case "active":
+          return "售卖中";
+        case "sold":
+          return "已卖出";
+        case "closed":
+          return "已关闭";
+        default:
+          return "未知";
       }
+    },
+    deleteItem(){
+
     }
   },
 
-  mounted() {
-  }
+  mounted() {}
 };
 </script>
 
 <style scoped>
 .box-card {
   width: 870px;
-  margin:5px auto;
+  margin: 5px auto;
   border: solid 1px rgb(140, 197, 255);
   margin-bottom: 20px;
 }
@@ -67,9 +85,15 @@ export default {
   justify-content: space-between;
   align-items: center;
 }
-.commodity-name{
+.commodity-name {
   font-size: 16px;
   color: #606266;
+}
+.commodity-name > a {
+  text-decoration: none;
+}
+.commodity-name>a:hover{
+  fill: #409EFF;
 }
 .commodity-details {
   color: #909399;
@@ -86,7 +110,7 @@ export default {
   background: no-repeat center;
   background-size: auto 160px;
 }
-.pic-wrapper{
+.pic-wrapper {
   width: 160px;
   height: 120px;
   background: #d3dce6;

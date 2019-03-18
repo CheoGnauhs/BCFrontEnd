@@ -1,6 +1,6 @@
 <template>
   <div class="border">
-    <canvas ref="canvas" :width="size" :height="size"></canvas>
+    <canvas class="avatar" ref="canvas" :width="size" :height="size"></canvas>
   </div>
 </template>
 
@@ -39,7 +39,9 @@ export default {
     }
   },
   mounted() {
-    this.draw()
+    this.$nextTick(() => {
+      this.draw()
+    })
   }
 }
 </script>
@@ -48,5 +50,8 @@ export default {
 .border {
   margin: 0;
   padding: 0;
+}
+.avatar{
+  border: solid 1px #DCDFE6;
 }
 </style>
