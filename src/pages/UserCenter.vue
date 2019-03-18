@@ -9,15 +9,15 @@
       </div>
       <div class="center-right">
         <!-- <FeedStream></FeedStream> -->
-        <el-tabs class="user-panel" type="border-card">
+        <el-tabs class="user-panel" type="border-card" @tab-click="handleTabClick">
           <el-tab-pane label="我的订单">
-            <FeedStream></FeedStream>
+            <FeedStream :commodityInformations="orders"></FeedStream>
           </el-tab-pane>
           <el-tab-pane label="我的物品">
-            <FeedStream></FeedStream>
+            <FeedStream :commodityInformations="items"></FeedStream>
           </el-tab-pane>
           <el-tab-pane label="我的收藏">
-            <FeedStream></FeedStream>
+            <FeedStream :commodityInformations="collections"></FeedStream>
           </el-tab-pane>
           <el-tab-pane label="我的信息">
             <CreditBody :info="userInfo"></CreditBody>
@@ -49,7 +49,10 @@ export default {
   },
   data() {
     return {
-      userInfo: {}
+      userInfo: {},
+      collections: [],
+      items: [],
+      orders: [],
     }
   },
   methods: {
@@ -72,6 +75,41 @@ export default {
       }).then(res => {
         this.userInfo = res
       })
+    },
+
+    getCollection() {
+      fetch('/api/profile/collections', {
+        headers: new Headers({
+          'Content-Type': 'application/json',
+          'Authorization': localStorage.getItem('token')
+        })
+      }).then(res => {
+        return res.json()
+      }).then(res => {
+        this.collections = res
+      })
+    },
+
+    getItems() {
+      fetch('/api/profile/items', {
+        headers: new Headers({
+          'Content-Type': 'application/json',
+          'Authorization': localStorage.getItem('token')
+        })
+      }).then(res => {
+        return res.json()
+      }).then(res => {
+        this.items = res
+      })
+    },
+
+    getOrders() {
+    },
+
+    handleTabClick(tab) {
+      if (tab.index == 0) this.getOrders()
+      else if (tab.index == 1) this.getItems()
+      else if (tab.index == 2) this.getCollection()
     }
   },
   mounted() {

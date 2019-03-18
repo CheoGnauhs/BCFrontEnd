@@ -51,7 +51,7 @@
         </el-form-item>
         <el-form-item label="物品类型">
           <br>
-          <el-select v-model="form.field" allow-create filterable placeholder="请为物品添加类型标签">
+          <el-select v-model="form.field" multiple allow-create filterable placeholder="请为物品添加类型标签">
             <el-option
               v-for="item in options"
               :key="item.value"
@@ -112,7 +112,7 @@ export default {
         description: "",
         price: "",
         districtCodes: [],
-        field: "",
+        field: [],
         method: "",
         fineness: ""
       },
