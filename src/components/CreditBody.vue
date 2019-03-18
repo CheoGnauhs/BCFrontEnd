@@ -32,6 +32,10 @@
         <span>
           <i class="el-icon-share"></i>区块链信息
         </span>
+        <el-tooltip placement="right">
+          <div slot="content">本评分根据区块链上的交易信息自动算出</div>
+          <i class="el-icon-more"></i>
+        </el-tooltip>
       </div>
       <div class="card-container">
         <span class="user-info">信用评分：
@@ -42,11 +46,17 @@
             :show-score="true"
             :allow-half="true"
           ></el-rate>
-          <el-tooltip placement="right">
-            <div slot="content">本评分根据区块链上的交易信息自动算出</div>
-            <i class="el-icon-more"></i>
-          </el-tooltip>
         </span>
+      </div>
+    </div>
+    <div class="card-wrapper">
+      <div class="card-head">
+        <span>
+          <i class="el-icon-goods"></i>积分信息
+        </span>
+      </div>
+      <div class="card-container">
+        <span class="user-info">二手币余额：{{info.balance}}</span>
       </div>
     </div>
   </div>

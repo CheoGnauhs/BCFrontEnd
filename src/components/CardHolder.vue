@@ -6,7 +6,10 @@
           <div class="img-wrapper" :style="{'background-image':'url('+item.image+')'}"></div>
         </router-link>
         <div class="content">
-          <router-link :to="`/item-detail/${item.id}`" class="title">{{item.name}}</router-link>
+          <router-link
+            :to="`/item-detail/${item.id}`"
+            class="title"
+          >{{item.name.length>25?item.name.substring(0,25)+"...":item.name}}</router-link>
           <div class="price-wrapper">
             价格:
             <span class="price">
@@ -31,23 +34,25 @@ export default {
   data() {
     return {
       // items: []
-    }
+    };
   },
   methods: {
     getData() {
-      let url = '/api/items'
-      if (this.$route.path == '/search') {
-        url = '/api/items/search?q=' + this.$route.query['q']
+      let url = "/api/items";
+      if (this.$route.path == "/search") {
+        url = "/api/items/search?q=" + this.$route.query["q"];
       }
       fetch(url, {
         headers: new Headers({
-          'Authorization': localStorage.getItem('token')
+          Authorization: localStorage.getItem("token")
         })
-      }).then(res => {
-        return res.json();
-      }).then(res => {
-        this.items = res
       })
+        .then(res => {
+          return res.json();
+        })
+        .then(res => {
+          this.items = res;
+        });
     }
   },
   mounted() {
@@ -58,13 +63,13 @@ export default {
 
 <style scoped>
 .card-holder {
-  display: flex;
-  flex-wrap: wrap;
+  display: block;
   justify-content: space-between;
 }
 .card-wrapper {
   width: 230px;
-  margin-top: 30px;
+  margin: 0px 23px;
+  margin-top: 15px;
 }
 .img-wrapper {
   width: 230px;

@@ -160,7 +160,7 @@ export default {
               message: '注册成功',
               type: 'success'
             })
-            this.$router.push('/')
+            this.$router.push('/detail-info')
             this.loadState = false
           }).catch(err => {
             this.$message({

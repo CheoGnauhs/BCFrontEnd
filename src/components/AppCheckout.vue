@@ -3,6 +3,9 @@
     <div class="your-info">
       <h3 class="payment-title">请确认您的信息</h3>
       <el-form class="center">
+        <el-form-item class="confirm-input" label="二手币余额">
+          <el-input :disabled="true" v-model="balance"></el-input>
+        </el-form-item>
         <el-form-item class="confirm-input" label="收货人">
           <el-input :disabled="true" v-model="receiver"></el-input>
         </el-form-item>
@@ -40,7 +43,8 @@ export default {
       response: "",
       address: "",
       receiver: "",
-      phone: ""
+      phone: "",
+      balance: 0
     };
   },
   methods: {
@@ -99,6 +103,7 @@ export default {
           this.receiver = res.name || res.handle;
           this.phone = res.telephone;
           this.address = res.address;
+          this.balance = res.balance;
         });
     }
   },

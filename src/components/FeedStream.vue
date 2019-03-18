@@ -10,9 +10,6 @@
         <span class="commodity-name">
           <router-link :to="'/item-detail/'+item.id">{{item.name}}</router-link>
         </span>
-        <a style="cursor: pointer" onclick="deleteItem">
-          <i class="el-icon-delete"></i>
-        </a>
       </div>
       <div class="card-container">
         <div class="pic-wrapper">
@@ -73,8 +70,6 @@ export default {
         default:
           return "未知";
       }
-    },
-    deleteItem(){
     },
     ensureOrder(order_id) {
       fetch(`/api/orders/${order_id}/ensure`, {

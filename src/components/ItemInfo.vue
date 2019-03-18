@@ -33,7 +33,9 @@
         </div>
         <div style="display:inline-block;height:100px" class="column">物品描述：
           <br>
-          <span class="value">{{item.description}}</span>
+          <span
+            class="value"
+          >{{item.description.length>111?item.description.substring(0,110)+"...":item.description}}</span>
         </div>
       </div>
       <div class="button-area">
