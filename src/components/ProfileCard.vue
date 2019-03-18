@@ -1,10 +1,11 @@
 <template>
   <div class="profile-card">
-    <img class="avatar" :src="info.avatar" alt="avatar">
+    <!-- <img class="avatar" :src="info.avatar" alt="avatar"> -->
+    <IdenIcon :size="175" :hash="info.avatar" />
     <div class="user-name">{{info.name}}</div>
     <div class="user-info">
       <img class="tag" src="../assets/location.png" alt="location">
-      {{CodeToText[districtCodes[0]]}}{{CodeToText[districtCodes[1]]}}{{CodeToText[districtCodes[2]]}}
+      <!-- {{CodeToText[districtCodes[0]]}}{{CodeToText[districtCodes[1]]}}{{CodeToText[districtCodes[2]]}} -->
     </div>
     <div class="user-info">
       <img class="tag" src="../assets/email.png" alt="email">
@@ -15,12 +16,16 @@
 
 <script>
 import { CodeToText } from "element-china-area-data";
+import IdenIcon from './IdenIcon.vue'
 export default {
   name: "ProfileCard",
   data() {
     return {
       CodeToText
     };
+  },
+  components: {
+    IdenIcon
   },
   computed: {
     districtCodes() {
