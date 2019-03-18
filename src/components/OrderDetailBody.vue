@@ -1,8 +1,7 @@
 <template>
   <div class="order-body">
     <el-row :gutter="10">
-      <OrderDetailItem v-for="(item, index) in this.orderDetailData" :key="index" :data="item">
-      </OrderDetailItem>
+      <OrderDetailItem :order="order" />
     </el-row>
   </div>
 </template>
@@ -12,6 +11,9 @@ import OrderDetailItem from "./OrderDetailItem.vue"
 
 export default {
   name: "OrderDetailBody",
+  props: {
+    order: Object
+  },
   data() {
     return {
       orderDetailData: [

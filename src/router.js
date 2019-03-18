@@ -49,7 +49,7 @@ const router = new VueRouter({
     component: Check
   },
   {
-    path: "/order-detail",
+    path: "/order-detail/:order_id",
     component: OrderDetail
   },
   {

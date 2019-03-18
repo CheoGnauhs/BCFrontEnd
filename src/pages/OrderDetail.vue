@@ -4,7 +4,7 @@
       <NavBar></NavBar>
     </el-header>
     <el-main>
-      <OrderDetailBody>order detail</OrderDetailBody>
+      <OrderDetailBody :order="orderInfo" />
     </el-main>  
     <el-footer>
       <FooterBar></FooterBar>
@@ -19,7 +19,21 @@ import OrderDetailBody from '../components/OrderDetailBody.vue';
 
 export default {
   name: "Register",
-  components: { NavBar, FooterBar, OrderDetailBody }
+  components: { NavBar, FooterBar, OrderDetailBody },
+  data() { return { orderInfo: {} } },
+  mounted() { this.getData() },
+  methods: {
+    getData() {
+      fetch(`/api/orders/${this.$route.params.order_id}/blockchain`, {
+        headers: new Headers({
+          'Authorization': localStorage.getItem('token'),
+          'Content-Type': 'application/json'
+        }),
+      }).then(res => res.json()).then(res => {
+        this.orderInfo = res
+      })
+    }
+  }
 };
 </script>
 

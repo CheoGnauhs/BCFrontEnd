@@ -14,13 +14,13 @@
             <CreditBody :info="userInfo"></CreditBody>
           </el-tab-pane>
           <el-tab-pane label="我的订单">
-            <FeedStream :commodityInformations="orders"></FeedStream>
+            <FeedStream cardtype="orders" :commodityInformations="orders"></FeedStream>
           </el-tab-pane>
           <el-tab-pane label="我的物品">
-            <FeedStream :commodityInformations="items"></FeedStream>
+            <FeedStream cardtype="items" :commodityInformations="items"></FeedStream>
           </el-tab-pane>
           <el-tab-pane label="我的收藏">
-            <FeedStream :commodityInformations="collections"></FeedStream>
+            <FeedStream cardtype="collections" :commodityInformations="collections"></FeedStream>
           </el-tab-pane>
         </el-tabs>
       </div>

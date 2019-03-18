@@ -27,9 +27,16 @@
           <span class="commodity-details">价格：{{item.price}}</span>
           <span class="commodity-details">完成情况：{{itemStatusText(item.status)}}</span>
         </div>
-        <div class="comment">
-          <el-button type="primary">查看评价</el-button>
-          <el-button type="primary">添加评价</el-button>
+        <div class="comment" v-if="cardtype == 'orders'">
+          <el-button type="primary" v-if="item.status == 'progress'" @click="ensureOrder(item.order_id)">确认收货</el-button>
+          <el-button type="danger" v-if="item.status == 'progress'" @click="cancelOrder(item.order_id)">取消订单</el-button>
+          <el-button type="success" v-if="item.status != 'progress'" @click="checkBlockchain(item.order_id)">查看链信息</el-button>
+        </div>
+        <div class="comment" v-else-if="cardtype == 'collections'">
+          <el-button type="danger" @click="cancelCollection(item.id)">取消收藏</el-button>
+        </div>
+        <div class="comment" v-else-if="cardtype == 'items'">
+          <el-button type="danger" @click="closeItem(item.id)" :disabled="!(item.status == 'active')">下架商品</el-button>
         </div>
       </div>
     </el-card>
@@ -41,7 +48,8 @@
 export default {
   name: "FeedSteam",
   props: {
-    commodityInformations: Array
+    commodityInformations: Array,
+    cardtype: String
   },
   data() {
     return {};
@@ -50,18 +58,97 @@ export default {
   methods: {
     itemStatusText(i) {
       switch (i) {
+        case "progress":
+          return "进行中";
         case "active":
           return "售卖中";
         case "sold":
           return "已卖出";
         case "closed":
-          return "已关闭";
+          return "已下架";
+        case "finished":
+          return "已完成";
+        case "cancelled":
+          return "已取消";
         default:
           return "未知";
       }
     },
     deleteItem(){
+    },
+    ensureOrder(order_id) {
+      fetch(`/api/orders/${order_id}/ensure`, {
+        headers: new Headers({
+          'Authorization': localStorage.getItem('token'),
+          'Content-Type': 'application/json'
+        }),
+        method: 'POST'
+      }).then(res => {
+        if (res.ok) {
+          this.$message({
+            message: '确认成功',
+            type: 'success'
+          })
+        }
+        this.$router.go(0)
+      })
+    },
+    cancelOrder(order_id) {
+      fetch(`/api/orders/${order_id}/cancel`, {
+        headers: new Headers({
+          'Authorization': localStorage.getItem('token'),
+          'Content-Type': 'application/json'
+        }),
+        method: 'POST'
+      }).then(res => {
+        if (res.ok) {
+          this.$message({
+            message: '取消成功',
+            type: 'success'
+          })
+        }
+        this.$router.go(0)
+      })
+    },
+    checkBlockchain(order_id) {
 
+    },
+    cancelCollection(item_id) {
+      fetch(`/api/items/${item_id}/collection`, {
+        headers: new Headers({
+          'Authorization': localStorage.getItem('token'),
+          'Content-Type': 'application/json'
+        }),
+        method: 'DELETE'
+      }).then(res => {
+        if (res.ok) {
+          this.$message({
+            message: '取消成功',
+            type: 'success'
+          })
+        }
+        this.$router.go(0)
+      })
+    },
+    closeItem(item_id) {
+      fetch(`/api/items/${item_id}/close`, {
+        headers: new Headers({
+          'Authorization': localStorage.getItem('token'),
+          'Content-Type': 'application/json'
+        }),
+        method: 'POST'
+      }).then(res => {
+        if (res.ok) {
+          this.$message({
+            message: '取消成功',
+            type: 'success'
+          })
+        }
+        this.$router.go(0)
+      })
+    },
+    checkBlockchain(order_id) {
+      this.$router.push(`/order-detail/${order_id}`)
     }
   },
 
