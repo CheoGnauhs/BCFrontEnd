@@ -16,7 +16,7 @@
             <el-input v-model="userInfo.handle" :disabled="true"></el-input>
           </el-form-item>
           <el-form-item label="姓名">
-            <el-input v-model="userInfo.userName" :disabled="disabled"></el-input>
+            <el-input v-model="userInfo.name" :disabled="disabled"></el-input>
           </el-form-item>
           <el-form-item label="手机">
             <el-input v-model="userInfo.telephone"></el-input>
@@ -33,7 +33,7 @@
         <div class="card-container">
           <el-form-item label="行政区划">
             <br>
-            <el-cascader :options="options" v-model="userInfo.district"></el-cascader>
+            <el-cascader :options="options" v-model="districtCodes"></el-cascader>
           </el-form-item>
           <el-form-item label="详细地址">
             <br>
@@ -62,7 +62,8 @@ export default {
     return {
       options: regionData,
       userInfo: {},
-      disabled: false
+      disabled: false,
+      districtCodes: []
     };
   },
   methods: {
@@ -86,13 +87,20 @@ export default {
         })
         .then(res => {
           this.userInfo = res;
+          if (this.userInfo.district != null || this.userInfo.district != "") {
+            this.districtCodes = this.userInfo.district.split("/");
+          }
+          if (this.userInfo.name != null || this.userInfo.name != "") {
+            this.disabled = true;
+          }
         });
     },
     updateData() {
+      this.userInfo.district = this.districtCodes.join("/");
       fetch("/api/profile", {
-        method: "PATCH",
-        Headers: new Headers({
-          "Content-Type": "application-json",
+        method: "PUT",
+        headers: new Headers({
+          "Content-Type": "application/json",
           Authorization: localStorage.getItem("token")
         }),
         body: JSON.stringify(this.userInfo)
@@ -102,6 +110,7 @@ export default {
             message: "信息更改成功",
             type: "success"
           });
+          this.$router.push("/user-center")
         } else {
           this.$message({
             message: "信息更改失败",
@@ -116,9 +125,6 @@ export default {
       this.$router.replace("/login?redirect=/detail-info");
     }
     this.getData();
-    if (this.userInfo.userName != "" || this.userInfo.userName != null) {
-      this.disable = true;
-    }
   },
   computed: {
     currentToken() {

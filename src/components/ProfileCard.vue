@@ -1,10 +1,10 @@
 <template>
   <div class="profile-card">
     <img class="avatar" :src="info.avatar" alt="avatar">
-    <div class="user-name">{{info.userName}}</div>
+    <div class="user-name">{{info.name}}</div>
     <div class="user-info">
       <img class="tag" src="../assets/location.png" alt="location">
-      {{CodeToText[info.district[0]]}}{{CodeToText[info.district[1]]}}{{CodeToText[info.district[2]]}}
+      {{CodeToText[districtCodes[0]]}}{{CodeToText[districtCodes[1]]}}{{CodeToText[districtCodes[2]]}}
     </div>
     <div class="user-info">
       <img class="tag" src="../assets/email.png" alt="email">
@@ -18,7 +18,14 @@ import { CodeToText } from "element-china-area-data";
 export default {
   name: "ProfileCard",
   data() {
-    return CodeToText;
+    return {
+      CodeToText
+    };
+  },
+  computed: {
+    districtCodes() {
+      return this.info.district.split("/");
+    }
   },
   props: {
     info: Object

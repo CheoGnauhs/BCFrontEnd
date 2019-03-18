@@ -1,6 +1,6 @@
 <template>
   <div class="credit-body">
-    <el-button id="change-button" type="primary">修改信息</el-button>
+    <el-button id="change-button" type="primary" @click="redirectPage">修改信息</el-button>
     <div class="card-wrapper">
       <div class="card-head">
         <span slot="title">
@@ -9,7 +9,7 @@
       </div>
       <div class="card-container">
         <span class="user-info">用户名：{{ info.handle }}</span>
-        <span class="user-info">姓名：{{ info.userName }}</span>
+        <span class="user-info">姓名：{{ info.name }}</span>
         <span class="user-info">手机：{{ info.telephone }}</span>
         <span class="user-info">邮箱：{{ info.email }}</span>
       </div>
@@ -21,7 +21,9 @@
         </span>
       </div>
       <div class="card-container">
-        <span class="user-info">行政区划：{{ info.district }}</span>
+        <span
+          class="user-info"
+        >行政区划：{{ CodeToText[districtCodes[0]]}}{{CodeToText[districtCodes[1]]}}{{CodeToText[districtCodes[2]]}}</span>
         <span class="user-info">详细地址：{{ info.address }}</span>
       </div>
     </div>
@@ -36,10 +38,14 @@
           <el-rate
             class="user-rate"
             v-model="info.credit"
-            disabled="true"
-            show-score="true"
-            allow-half="true"
+            :disabled="true"
+            :show-score="true"
+            :allow-half="true"
           ></el-rate>
+          <el-tooltip placement="right">
+            <div slot="content">本评分根据区块链上的交易信息自动算出</div>
+            <i class="el-icon-more"></i>
+          </el-tooltip>
         </span>
       </div>
     </div>
@@ -47,15 +53,28 @@
 </template>
 
 <script>
+import { CodeToText } from "element-china-area-data";
 export default {
   name: "CreditBody",
   props: {
     info: Object
   },
   data() {
-    return {}
+    return {
+      CodeToText
+    };
+  },
+  methods: {
+    redirectPage() {
+      this.$router.push("/detail-info");
+    }
   },
   computed: {
+    districtCodes() {
+      // eslint-disable-next-line
+      console.log(this.info.district);
+      return this.info.district.split("/");
+    }
   }
 };
 </script>
@@ -102,6 +121,7 @@ export default {
 }
 .user-rate {
   display: inline-block;
+  margin-right: 5px;
 }
 .user-info {
   display: flex;

@@ -52,72 +52,77 @@ export default {
       userInfo: {},
       collections: [],
       items: [],
-      orders: [],
-    }
+      orders: []
+    };
   },
   methods: {
     getData() {
-      fetch('/api/profile', {
+      fetch("/api/profile", {
         method: "GET",
         headers: new Headers({
           "Content-Type": "application/json",
-          "Authorization": localStorage.getItem('token')
+          Authorization: localStorage.getItem("token")
         })
-      }).then(res => {
-        if (res.ok) {
-          return res.json()
-        } else if (res.unauthorized) {
-          localStorage.removeItem('token')
-          this.$router.replace('/login')
-        } else {
-          throw new Error()
-        }
-      }).then(res => {
-        this.userInfo = res
       })
+        .then(res => {
+          if (res.ok) {
+            return res.json();
+          } else if (res.unauthorized) {
+            localStorage.removeItem("token");
+            this.$router.replace("/login");
+          } else {
+            throw new Error();
+          }
+        })
+        .then(res => {
+          this.userInfo = res;
+        });
     },
 
     getCollection() {
-      fetch('/api/profile/collections', {
+      fetch("/api/profile/collections", {
         headers: new Headers({
-          'Content-Type': 'application/json',
-          'Authorization': localStorage.getItem('token')
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token")
         })
-      }).then(res => {
-        return res.json()
-      }).then(res => {
-        this.collections = res
       })
+        .then(res => {
+          return res.json();
+        })
+        .then(res => {
+          this.collections = res;
+        });
     },
 
     getItems() {
-      fetch('/api/profile/items', {
+      fetch("/api/profile/items", {
         headers: new Headers({
-          'Content-Type': 'application/json',
-          'Authorization': localStorage.getItem('token')
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token")
         })
-      }).then(res => {
-        return res.json()
-      }).then(res => {
-        this.items = res
       })
+        .then(res => {
+          return res.json();
+        })
+        .then(res => {
+          this.items = res;
+        });
     },
 
-    getOrders() {
-    },
+    getOrders() {},
 
     handleTabClick(tab) {
-      if (tab.index == 0) this.getOrders()
-      else if (tab.index == 1) this.getItems()
-      else if (tab.index == 2) this.getCollection()
+      if (tab.index == 0) this.getOrders();
+      else if (tab.index == 1) this.getItems();
+      else if (tab.index == 2) this.getCollection();
     }
   },
   mounted() {
-    if (!localStorage.getItem('token')) {
-      this.$router.replace('/login?redirect=/user-center')
-      return
+    if (!localStorage.getItem("token")) {
+      this.$router.replace("/login?redirect=/user-center");
+      return;
     }
-    this.getData()
+    this.getData();
   }
 };
 </script>
