@@ -1,8 +1,9 @@
 <template>
   <li class="comment-item">
     <div class="user-info">
-      <img class="user-avatar" :src="detail.avatar" alt="avatar">
-      <div class="user-name">{{detail.name}}</div>
+      <!-- <img class="user-avatar" :src="detail.avatar" alt="avatar"> -->
+      <IdenIcon :hash="detail.author.avatar" :size="50" />
+      <div class="user-name">{{detail.author.handle}}</div>
     </div>
     <div class="comment-right">
       <div v-if="detail.replyto==null" class="user-comment">{{detail.content}}</div>
@@ -13,7 +14,7 @@
         {{detail.content}}
       </div>
       <div class="comment-message">
-        <div class="comment-time">{{detail.timestamp}}</div>
+        <div class="comment-time">{{detail.created_at}}</div>
         <div class="comment-op">
           <!-- 不为空时显示回复条数,回复为空时不显示数字 -->
           <span class="op-btn" @click="pannelDisplay = !pannelDisplay">
@@ -35,9 +36,16 @@
 </template>
 
 <script>
+import IdenIcon from './IdenIcon.vue'
 export default {
   name: "CommentItem",
-  props: ["detail"],
+  props: {
+    detail: Object,
+    item_id: Number
+  },
+  components: {
+    IdenIcon
+  },
   data() {
     var getTime = () => {
       let date = new Date();
@@ -45,7 +53,7 @@ export default {
     };
     return {
       replyItem: {
-        replyto: this.detail.name,
+        replyto: null,
         content: "",
         timestamp: getTime()
       },
@@ -54,8 +62,30 @@ export default {
   },
   methods: {
     reply: function() {
-      // eslint-disable-next-line
-      console.log(this.replyItem);
+      fetch(`/api/items/${this.item_id}/comments`, {
+        method: 'POST',
+        headers: new Headers({
+          'Authorization': localStorage.getItem('token'),
+          'Content-Type': 'application/json'
+        }),
+        body: JSON.stringify({
+          thread: this.detail.id,
+          content: this.replyItem.content
+        })
+      }).then(res => {
+        if (res.ok) {
+          this.$message({
+            message: '评论成功',
+            type: 'success'
+          })
+          this.$router.go(0)
+        } else {
+          this.$message({
+            message: '评论失败',
+            type: 'error'
+          })
+        }
+      })
     }
   }
 };

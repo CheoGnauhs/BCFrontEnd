@@ -2,9 +2,9 @@
   <div class="comment-part">
     <div class="comment-header column">用户评论</div>
     <ul class="comments" v-for="(comment,index) in comments" :key="index">
-      <CommentItem :detail="comment"></CommentItem>
+      <CommentItem :detail="comment" :item_id="item_id"></CommentItem>
       <ul class="comments-replies" v-for="(reply,index) in comment.replies" :key="index">
-        <CommentItem :detail="reply"></CommentItem>
+        <CommentItem :detail="reply" :item_id="item_id"></CommentItem>
       </ul>
     </ul>
   </div>
@@ -15,7 +15,7 @@ import CommentItem from "./CommentItem.vue";
 export default {
   name: "CommentPart",
   components: { CommentItem },
-  props: ["comments"],
+  props: ["comments", "item_id"],
   data() {
     return {};
   }

@@ -6,7 +6,7 @@
 
     <el-main class="display-area">
       <ItemInfo :item="item"></ItemInfo>
-      <CommentPart :comments="comments"></CommentPart>
+      <CommentPart :comments="comments" :item_id="item.id"></CommentPart>
     </el-main>
 
     <el-footer>
@@ -33,20 +33,20 @@ export default {
           content: "看起来可以",
           timestamp: "2019-03-07 11:08",
           replies: [
-            {
-              replyto: "吕岩松",
-              avatar: require("../assets/avatar.jpg"),
-              name: "吕岩松",
-              content: "其实还是不行",
-              timestamp: "2019-03-16 12:08",
-            },
-            {
-              replyto: "吕岩松",
-              avatar: require("../assets/avatar.jpg"),
-              name: "吕岩松",
-              content: "其实还是可以",
-              timestamp: "2019-03-16 12:09",
-            }
+            // {
+            //   replyto: "吕岩松",
+            //   avatar: require("../assets/avatar.jpg"),
+            //   name: "吕岩松",
+            //   content: "其实还是不行",
+            //   timestamp: "2019-03-16 12:08",
+            // },
+            // {
+            //   replyto: "吕岩松",
+            //   avatar: require("../assets/avatar.jpg"),
+            //   name: "吕岩松",
+            //   content: "其实还是可以",
+            //   timestamp: "2019-03-16 12:09",
+            // }
           ]
         },
         {
@@ -86,6 +86,14 @@ export default {
         return res.json()
       }).then(res => {
         this.item = res
+      })
+
+      fetch(`/api/items/${this.$route.params.item_id}/comments`, {
+        headers: new Headers({
+          'Content-Type': 'application/json'
+        })
+      }).then(res => res.json()).then(res => {
+        this.comments = res
       })
     }
   },
